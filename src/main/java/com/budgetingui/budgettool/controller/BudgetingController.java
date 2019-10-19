@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/tool/api")
-public class budgetingController {
+public class BudgetingController {
 
     @Resource
     private BudgetService budgetService;
@@ -22,5 +22,10 @@ public class budgetingController {
     @RequestMapping(method = RequestMethod.POST, value = "/saveTransaction")
     public ResponseEntity<?> saveTransactions (@RequestBody Purchase purchase) {
         return budgetService.saveNewTransaction(purchase);
+    }
+
+    @RequestMapping(value = "/")
+    public String index() {
+        return "index";
     }
 }
