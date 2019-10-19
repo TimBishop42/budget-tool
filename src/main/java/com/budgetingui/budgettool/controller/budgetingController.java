@@ -19,7 +19,7 @@ public class budgetingController {
     private BudgetService budgetService;
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/saveTransacion")
+    @RequestMapping(method = RequestMethod.POST, value = "/saveTransaction")
     public ResponseEntity<?> saveTransactions (@RequestBody Purchase purchase) {
         return budgetService.saveNewTransaction(purchase);
     }
