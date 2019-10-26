@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Service
@@ -23,5 +24,9 @@ public class BudgetService {
         else {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public List <Purchase> getAllTransactions() {
+        return purchaseRepository.findAll();
     }
 }

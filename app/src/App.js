@@ -30,11 +30,11 @@ class App extends Component {
             <div >
                 hello
               </div>
-            {/* {purchases.map(purchase =>
+            {purchases.map(purchase =>
               <div key={purchase.id}>
                 {purchase.name}
               </div>
-            )} */}
+            )}
           </div>
         </header>
       </div>
