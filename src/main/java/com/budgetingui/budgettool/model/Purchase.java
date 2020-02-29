@@ -15,19 +15,25 @@ public class Purchase {
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
+    private String category;
     private String description;
+    private String name;
     private BigDecimal cost;
 
     @Temporal(TemporalType.DATE)
     private Date purchaseDate;
 
     public void setPurchaseDate(String dateString) {
-        try {
-            this.purchaseDate = new SimpleDateFormat("ddMMyyyy").parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        };
+        if(dateString == null) {
+            this.purchaseDate = new Date();
+        }
+        else {
+            try {
+                this.purchaseDate = new SimpleDateFormat("ddMMyyyy").parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            };
+        }
     }
 
 }

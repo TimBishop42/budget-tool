@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 @Service
@@ -19,10 +20,10 @@ public class BudgetService {
     public ResponseEntity<?> saveNewTransaction(Purchase purchase) {
         Purchase result = purchaseRepository.save(purchase);
         if(result != null) {
-            return new ResponseEntity<String>(HttpStatus.OK);
+            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
         }
     }
 
