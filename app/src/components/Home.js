@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
+
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import SubmissionStatus from './SubmittionAlert';
 import axios from 'axios'
@@ -50,14 +50,14 @@ const theme = createMuiTheme({
 
 class Home extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.handleChange = this.handleChange.bind(this);
         this.submitPurchase = this.submitPurchase.bind(this);
         this.state = {
             purchaseType: 'Wedding',
             userName: 'Loz',
-            isSubmitted: false,
-            activePage: 'submitPage'
+            isSubmitted: false
+            
         }
     }
 
@@ -99,66 +99,30 @@ class Home extends React.Component {
         }
     }
 
+
     render() {
 
         return (
             <ThemeProvider theme={theme}>
-            { ((this.state.activePage === PageNames.EventsPage)) ? (
+            {console.log("About to show submit sections")}
+            {console.log(this.props.activePage)}
+            { ((this.props.activePage === PageNames.SubmitPage)) ? (
                 <div className={"landing-page-component-container"}>
-                    <SubmitTransaction {...this.props} />
+                {console.log("In Submit")}
+                    <SubmitTransaction 
+                    purchaseType = {this.state.purchaseType}
+                    usrname = {this.state.userName}
+                    isSubmitted = {this.state.isSubmitted}
+                    handleChange = {this.handleChange.bind(this)}
+                    submitPurchase = {this.submitPurchase.bind(this)}
+                    submittionStatus = {this.submittionStatus.bind(this)}/>
                 </div>
-            ) : ((this.state.activePage === PageNames.ProfilePage)) && (
+            ) : ((this.props.activePage === PageNames.ReviewPage)) && (
                 <div className={"landing-page-component-container"}>
                     <ReviewTransaction />
                 </div>
             )}
 
-                    {/*<Grid container direction="column" spacing={2}>*/}
-                    {/*    <Grid item>*/}
-                    {/*        <TextField*/}
-                    {/*            placeholder={"Purchase Type"}*/}
-                    {/*            color={"secondary"}*/}
-                    {/*            variant="outlined"*/}
-                    {/*            name="purchaseType"*/}
-                    {/*            select*/}
-                    {/*            value={this.state.purchaseType}*/}
-                    {/*            onChange={this.handleChange}>*/}
-                    {/*            {purchaseTypes.map(option => (*/}
-                    {/*                <MenuItem key={option.value} value={option.value}>*/}
-                    {/*                    {option.label}*/}
-                    {/*                </MenuItem>*/}
-                    {/*            ))}*/}
-                    {/*        </TextField>*/}
-                    {/*    </Grid>*/}
-                    {/*    <Grid item>*/}
-                    {/*        <TextField*/}
-                    {/*            placeholder={"User Name"}*/}
-                    {/*            color={"secondary"}*/}
-                    {/*            variant="outlined"*/}
-                    {/*            name="userName"*/}
-                    {/*            select*/}
-                    {/*            value={this.state.userName}*/}
-                    {/*            onChange={this.handleChange}>*/}
-                    {/*            {userNames.map(option => (*/}
-                    {/*                <MenuItem key={option.value} value={option.value}>*/}
-                    {/*                    {option.label}*/}
-                    {/*                </MenuItem>*/}
-                    {/*            ))}*/}
-                    {/*        </TextField>*/}
-                    {/*    </Grid>*/}
-                    {/*    <Grid item>*/}
-                    {/*        <TextField placeholder={"Amount"} variant="outlined"/>*/}
-                    {/*    </Grid>*/}
-                    {/*    <Grid item>*/}
-                    {/*        <TextField placeholder={"Description"} variant="outlined"/>*/}
-                    {/*    </Grid>*/}
-                    {/*    <Grid item>*/}
-                    {/*        <Button variant="contained" onClick={this.submitPurchase} color={"primary"}>*/}
-                    {/*            {this.submittionStatus()}*/}
-                    {/*        </Button>*/}
-                    {/*    </Grid>*/}
-                    {/*    <SubmissionStatus submissionStatus={this.state.isSubmitted}/>*/}
-                    {/*</Grid>*/}
                 </ThemeProvider>
         )
     }

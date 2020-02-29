@@ -2,7 +2,7 @@ import React from "react";
 
 function SubmitionStatus (props) {
 
-    if(props.submissionStatus) {
+    if(props.submissionState) {
         return <p>Submission Successful</p>
     }
     else {

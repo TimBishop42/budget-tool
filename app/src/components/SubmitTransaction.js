@@ -7,6 +7,29 @@ import SubmissionStatus from "./SubmittionAlert";
 import React from "react";
 
 
+const
+    purchaseTypes = [
+        {
+            value: 'Wedding',
+            label: 'Wedding',
+        },
+        {
+            value: 'Alcohol',
+            label: 'Alcohol',
+        }
+    ];
+const
+    userNames = [
+        {
+            value: 'Tim',
+            label: 'Tim',
+        },
+        {
+            value: 'Loz',
+            label: 'Loz',
+        }
+    ];
+
 class SubmitTransaction extends React.Component {
 
     constructor(props) {
@@ -14,7 +37,6 @@ class SubmitTransaction extends React.Component {
     }
     render() {
         return (
-            <ThemeProvider theme={theme}>
                 <Grid container direction="column" spacing={2}>
                     <Grid item>
                         <TextField
@@ -23,8 +45,8 @@ class SubmitTransaction extends React.Component {
                             variant="outlined"
                             name="purchaseType"
                             select
-                            value={this.state.purchaseType}
-                            onChange={this.handleChange}>
+                            value={this.props.purchaseType}
+                            onChange={this.props.handleChange}>
                             {purchaseTypes.map(option => (
                                 <MenuItem key={option.value} value={option.value}>
                                     {option.label}
@@ -39,7 +61,7 @@ class SubmitTransaction extends React.Component {
                             variant="outlined"
                             name="userName"
                             select
-                            value={this.state.userName}
+                            value={this.props.userName}
                             onChange={this.handleChange}>
                             {userNames.map(option => (
                                 <MenuItem key={option.value} value={option.value}>
@@ -55,13 +77,12 @@ class SubmitTransaction extends React.Component {
                         <TextField placeholder={"Description"} variant="outlined"/>
                     </Grid>
                     <Grid item>
-                        <Button variant="contained" onClick={this.submitPurchase} color={"primary"}>
-                            {this.submittionStatus()}
+                        <Button variant="contained" onClick={this.props.submitPurchase} color={"primary"}>
+                            {this.props.submittionStatus()}
                         </Button>
                     </Grid>
-                    <SubmissionStatus submissionStatus={this.state.isSubmitted}/>
+                    <SubmissionStatus submissionState={this.props.isSubmitted}/>
                 </Grid>
-            </ThemeProvider>
         )
     }
 }
