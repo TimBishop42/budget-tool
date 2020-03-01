@@ -51,7 +51,7 @@ class App extends Component {
                         <div className={"landing-page-navigation-container"}>
                             <MuiThemeProvider theme={ComponentStyles.buttonCustomStyles}>
                                 <Button variant="contained" color={this.state.activePage === PageNames.SubmitPage ? "secondary" : "primary"} style={{ marginRight: 8 }} onClick={() => this.changeView(PageNames.SubmitPage)}>
-                                    Submit Transaction
+                                    Submit
                             </Button>
 
                                 <Button variant="contained" color={this.state.activePage === PageNames.ReviewPage ? "secondary" : "primary"} style={{ marginLeft: 8 }} onClick={() => this.changeView(PageNames.ReviewPage)}>

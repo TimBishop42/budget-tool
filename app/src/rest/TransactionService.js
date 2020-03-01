@@ -7,17 +7,30 @@ export class TransactionService {
 
     }
 
-    //If we are getting event details for a user why are we not passing the unique token?
-    submitPurchase() {
+ 
+    submitPurchase(description, amount, purchaseType, userName) {
         let url = "/tool/api/saveTransaction"
 
         return axios.post(url, {
-                name: 'Tim',
-                category: 'Wedding',
-                description: 'Bought at this place',
-                cost: 10.27
+                name: userName,
+                category: purchaseType,
+                description: description,
+                cost: amount
             },
             {headers: {'Content-Type': 'application/json'}})
+    }
+
+    reviewTransactions() {
+        let url = "/tool/api/getTransactions"
+
+        return axios.get(url)
+            // , {
+            //     name: 'Tim',
+            //     category: 'Wedding',
+            //     description: 'Bought at this place',
+            //     cost: 10.27
+            // },
+            // {headers: {'Content-Type': 'application/json'}})
     }
 
 }

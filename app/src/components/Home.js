@@ -54,6 +54,8 @@ class Home extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.submitPurchase = this.submitPurchase.bind(this);
         this.state = {
+            description: '',
+            amount: '',
             purchaseType: 'Wedding',
             userName: 'Loz',
             isSubmitted: false
@@ -64,7 +66,7 @@ class Home extends React.Component {
 
     async submitPurchase() {
         if (!this.state.isSubmitted) {
-            TransactionService.submitPurchase()
+            TransactionService.submitPurchase(this.state.description, this.state.amount, this.state.purchaseType, this.state.userName)
                 .catch((error) => {
                     console.log(error);
 
@@ -81,6 +83,7 @@ class Home extends React.Component {
             console.log("already submitted");
         }
     }
+
 
 
     handleChange = event => {
@@ -104,14 +107,13 @@ class Home extends React.Component {
 
         return (
             <ThemeProvider theme={theme}>
-            {console.log("About to show submit sections")}
-            {console.log(this.props.activePage)}
             { ((this.props.activePage === PageNames.SubmitPage)) ? (
                 <div className={"landing-page-component-container"}>
-                {console.log("In Submit")}
                     <SubmitTransaction 
                     purchaseType = {this.state.purchaseType}
-                    usrname = {this.state.userName}
+                    username = {this.state.userName}
+                    amount = {this.state.amount}
+                    description = {this.state.description}
                     isSubmitted = {this.state.isSubmitted}
                     handleChange = {this.handleChange.bind(this)}
                     submitPurchase = {this.submitPurchase.bind(this)}
