@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link as RouterLink} from "react-router-dom";
+import { inject, observer } from "mobx-react";
 
 function Copyright() {
     return (
@@ -25,6 +26,10 @@ function Copyright() {
             {'.'}
         </Typography>
     );
+}
+
+function logUserIn() {
+    
 }
 
 const useStyles = makeStyles(theme => ({
@@ -47,6 +52,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+@observer
 export default function SignIn() {
     const classes = useStyles();
 
@@ -97,6 +103,7 @@ export default function SignIn() {
                         Sign In
                     </Button>
                     <RouterLink to={'/home'}>Skip</RouterLink>
+                    <Button onClick={()=>this.logUserIn}>Skip with state</Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
