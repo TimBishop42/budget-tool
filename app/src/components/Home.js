@@ -3,12 +3,14 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
+import {createMuiTheme, makeStyles, MuiThemeProvider, ThemeProvider} from '@material-ui/core/styles';
 import SubmissionStatus from './SubmittionAlert';
 import axios from 'axios'
 import TransactionService from "../rest/TransactionService";
 import SubmitTransaction from "./SubmitTransaction";
 import ReviewTransaction from "./ReviewTransactions";
+import * as ComponentStyles from "../style/ComponentStyles";
+import Button from "@material-ui/core/Button";
 
 const PageNames = {
     SubmitPage: 'submitPage',
@@ -58,7 +60,8 @@ class Home extends React.Component {
             amount: '',
             purchaseType: 'Wedding',
             userName: 'Loz',
-            isSubmitted: false
+            isSubmitted: false,
+            activePage: 'submitPage'
             
         }
     }
@@ -102,12 +105,32 @@ class Home extends React.Component {
         }
     }
 
+    changeView(buttonChoice) {
+        this.setState({
+            activePage: buttonChoice
+        })
+    }
+
 
     render() {
 
         return (
             <ThemeProvider theme={theme}>
-            { ((this.props.activePage === PageNames.SubmitPage)) ? (
+                <div className={"landing-page-navigation-container"}>
+                        <Button variant="contained"
+                                color={this.state.activePage === PageNames.SubmitPage ? "secondary" : "primary"}
+                                style={{marginRight: 8}} onClick={() => this.changeView(PageNames.SubmitPage)}>
+                            Submit
+                        </Button>
+
+                        <Button variant="contained"
+                                color={this.state.activePage === PageNames.ReviewPage ? "secondary" : "primary"}
+                                style={{marginLeft: 8}} onClick={() => this.changeView(PageNames.ReviewPage)}>
+                            Review
+                        </Button>
+                </div>
+
+            { ((this.state.activePage === PageNames.SubmitPage)) ? (
                 <div className={"landing-page-component-container"}>
                     <SubmitTransaction 
                     purchaseType = {this.state.purchaseType}
@@ -119,7 +142,7 @@ class Home extends React.Component {
                     submitPurchase = {this.submitPurchase.bind(this)}
                     submittionStatus = {this.submittionStatus.bind(this)}/>
                 </div>
-            ) : ((this.props.activePage === PageNames.ReviewPage)) && (
+            ) : ((this.state.activePage === PageNames.ReviewPage)) && (
                 <div className={"landing-page-component-container"}>
                     <ReviewTransaction />
                 </div>

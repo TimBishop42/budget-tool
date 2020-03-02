@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './static/App.css';
 import 'typeface-roboto';
@@ -6,6 +6,8 @@ import Home from './components/Home.js';
 import * as ComponentStyles from "./style/ComponentStyles";
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
+import LoginPage from './components/LoginPage';
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 
 const PageNames = {
     SubmitPage: 'submitPage',
@@ -22,17 +24,11 @@ class App extends Component {
     async componentDidMount() {
         const response = await fetch('/tool/api/getTransactions');
         const body = await response.json();
-        this.setState({ purchases: body, isLoading: false });
-    }
-
-    changeView(buttonChoice) {
-        this.setState({
-            activePage: buttonChoice
-        })
+        this.setState({purchases: body, isLoading: false});
     }
 
     render() {
-        const { purchases, isLoading } = this.state;
+        const {purchases, isLoading} = this.state;
 
         if (isLoading) {
             return <p>Loading...</p>;
@@ -48,20 +44,14 @@ class App extends Component {
                             Welcome
                         </div>
                         {/* Navigation buttons to switch between submit transactions and review transactions list */}
-                        <div className={"landing-page-navigation-container"}>
-                            <MuiThemeProvider theme={ComponentStyles.buttonCustomStyles}>
-                                <Button variant="contained" color={this.state.activePage === PageNames.SubmitPage ? "secondary" : "primary"} style={{ marginRight: 8 }} onClick={() => this.changeView(PageNames.SubmitPage)}>
-                                    Submit
-                            </Button>
-
-                                <Button variant="contained" color={this.state.activePage === PageNames.ReviewPage ? "secondary" : "primary"} style={{ marginLeft: 8 }} onClick={() => this.changeView(PageNames.ReviewPage)}>
-                                    Review
-                            </Button>
-                            </MuiThemeProvider>
-                        </div>
                     </div>
                     <div className="App-main">
-                        <Home activePage = {this.state.activePage}/>
+                        <Router>
+                            <Switch>
+                                <Route exact path='/' component={LoginPage}/>
+                                <Route exact path='/home' component={Home}/>
+                            </Switch>
+                        </Router>
                     </div>
                 </header>
 
