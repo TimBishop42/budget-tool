@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {action, observable} from "mobx";
-import UserStorage from "../storage/UserStorage";
+import UserStorage from "../store/UserStorage";
 
 export const UserDetails = ({
     name: null,
