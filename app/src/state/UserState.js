@@ -41,6 +41,8 @@ class UserState {
     loggingInUpdateHeader() {
         this.isLoggedIn = true;
         UserStorage.setIsLoggedIn(true);
+        console.log(this.isLoggedIn)
+        console.log(this.user)
     }
 
     // // Update user details off server

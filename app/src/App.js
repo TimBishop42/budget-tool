@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
-import './static/App.css';
+import './static/css/App.css';
 import 'typeface-roboto';
 import Home from './components/Home.js';
 import * as ComponentStyles from "./style/ComponentStyles";
