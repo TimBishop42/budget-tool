@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import {Link as RouterLink} from "react-router-dom";
 import {inject, observer} from "mobx-react";
 import userState from "../state/UserState";
+import * as ComponentStyles from "../style/ComponentStyles";
 
 function Copyright() {
     return (
@@ -30,38 +31,23 @@ function Copyright() {
 }
 
 
-const useStyles = makeStyles(theme => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
 
-const classes = useStyles();
-
-// @observer
-// @inject('userState')
+@observer
+@inject('userState')
 class SignIn extends React.Component {
 
     logUserIn() {
-        userState.login({
+        console.log('Ábout to long user in');
+        this.props.userState.login({
                 name: 'Tim',
                 token: 'testToken'
             }
-        )
+        );
+        console.log('Ábout to long user in')
+    }
+
+    test(){
+        console.log('where are we???')
     }
 
     constructor(props) {
@@ -72,14 +58,15 @@ class SignIn extends React.Component {
         return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
-                <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
+                <div className={ComponentStyles.loginStyles.paper}>
+                    {console.log(this.props.userState.isLoggedIn)}
+                    <Avatar className={ComponentStyles.loginStyles.avatar}>
                         {/*<LockOutlinedIcon />*/}
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={ComponentStyles.loginStyles.form} noValidate>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -111,18 +98,20 @@ class SignIn extends React.Component {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className={classes.submit}
+                            className={ComponentStyles.loginStyles.submit}
                         >
                             Sign In
                         </Button>
-                        <RouterLink to={'/home'}>Skip</RouterLink>
+                        {/*<RouterLink to={'/home'}>Skip</RouterLink>*/}
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="secondary"
-                            className={classes.logIn}
-                            onClick={() => this.logUserIn}>Skip with state</Button>
+                            className={ComponentStyles.loginStyles.logIn}
+                            onClick={() => this.props.userState.loginUserIn()}>
+                            Skip with state
+                        </Button>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">

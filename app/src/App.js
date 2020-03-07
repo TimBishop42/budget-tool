@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './static/css/App.css';
 import 'typeface-roboto';
 import Home from './components/Home.js';
-import * as ComponentStyles from "./style/ComponentStyles";
-import {MuiThemeProvider} from '@material-ui/core/styles';
-import Button from "@material-ui/core/Button";
 import LoginPage from './components/LoginPage';
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {inject} from "mobx-react";
 
 const PageNames = {
     SubmitPage: 'submitPage',
     ReviewPage: 'reviewPage'
 };
 
+@inject('userState')
 class App extends Component {
+    // userState = userState;
+
     state = {
         isLoading: true,
         purchases: [],
@@ -38,19 +38,22 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     {/*<img src={logo} className="App-logo" alt="logo" />*/}
-                    <div className="App-intro">
-                        <h1>Budget App</h1>
-                        <div>
-                            Welcome
-                        </div>
-                        {/* Navigation buttons to switch between submit transactions and review transactions list */}
-                    </div>
                     <div className="App-main">
                         <Router>
-                            <Switch>
-                                <Route exact path='/' component={LoginPage}/>
-                                <Route exact path='/home' component={Home}/>
-                            </Switch>
+
+                            {this.props.userState.isLoggedIn ? (
+                                <Switch>
+                                    <Route exact path='/' component={Home}/>
+                                    <Route exact path='/home' component={Home}/>
+                                </Switch>
+                            ) : (
+                                <Switch>
+                                    <Route exact path='/' component={LoginPage}/>
+                                    <Route exact path='/home' component={LoginPage}/>
+                                </Switch>
+                            )
+                            }
+
                         </Router>
                     </div>
                 </header>
