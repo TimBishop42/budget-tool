@@ -25,8 +25,9 @@ class UserState {
 
     @action
     login(user) {
-        window.location.href = "/landing-page"; //temp solution not to be used as a best react practise.
-
+        //window.location.href = "/landing-page"; //temp solution not to be used as a best react practise.
+        console.log('Currently in UserState: ')
+        console.log(user)
         this.user = user;
         UserStorage.storeUser(user);
 

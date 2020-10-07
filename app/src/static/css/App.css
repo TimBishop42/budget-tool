@@ -6,16 +6,29 @@
   height: 40vmin;
 }
 
+.App-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .App-header {
   background-color: #282c34;
   /*background-color: white;*/
-  min-height: 100vh;
-  display: flex;
+  /*min-height: 100vh;*/
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+.landing-page-navigation-container {
+  flex: 2;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+.landing-page-component-container {
+  flex: 2;
 }
 .App-intro {
   flex: 1

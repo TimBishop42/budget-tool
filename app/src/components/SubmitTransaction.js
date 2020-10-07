@@ -75,6 +75,7 @@ class SubmitTransaction extends React.Component {
                         placeholder={"Amount"}
                         variant="outlined"
                         name="amount"
+                        type="number"
                         value={this.props.amount}
                         onChange={this.props.handleChange}/>
                     </Grid>
