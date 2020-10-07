@@ -9,12 +9,11 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity(name = "user")
-@Table(name = "USER")
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 4815877135015943617L;
 
-    @Id()
+    @Id
     @Column(name = "ID_")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -30,7 +29,7 @@ public class User implements UserDetails {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<RoleEntity> authorities;
+    private List<Role> authorities;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -76,7 +75,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setAuthorities(List<RoleEntity> authorities) {
+    public void setAuthorities(List<Role> authorities) {
         this.authorities = authorities;
     }
 
@@ -87,3 +86,4 @@ public class User implements UserDetails {
     public String getEmail() {
         return email;
     }
+}

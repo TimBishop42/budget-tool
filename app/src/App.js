@@ -5,6 +5,7 @@ import Home from './components/Home.js';
 import LoginPage from './components/LoginPage';
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import {inject} from "mobx-react";
+import * as ROUTES from './constants/routes';
 
 const PageNames = {
     SubmitPage: 'submitPage',
@@ -37,26 +38,32 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
+                    <h1>Budget App</h1>
+                    <div>
+                        Welcome
+                    </div>
+
+                </header>
                     {/*<img src={logo} className="App-logo" alt="logo" />*/}
                     <div className="App-main">
                         <Router>
 
                             {this.props.userState.isLoggedIn ? (
                                 <Switch>
-                                    <Route exact path='/' component={Home}/>
-                                    <Route exact path='/home' component={Home}/>
+                                    <Route exact path={ROUTES.LANDING} component={Home}/>
+                                    <Route exact path={ROUTES.HOME} component={Home}/>
                                 </Switch>
                             ) : (
                                 <Switch>
-                                    <Route exact path='/' component={LoginPage}/>
-                                    <Route exact path='/home' component={LoginPage}/>
+                                    <Route exact path={ROUTES.LANDING} component={LoginPage}/>
+                                    <Route exact path={ROUTES.HOME} component={LoginPage}/>
                                 </Switch>
                             )
                             }
 
                         </Router>
                     </div>
-                </header>
+
 
             </div>
         );

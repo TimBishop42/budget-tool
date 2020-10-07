@@ -1,10 +1,11 @@
 package com.budgetingui.budgettool.service;
 
-import com.budgetingui.budgettool.model.UserEntity;
+import com.budgetingui.budgettool.firebase.auth.RegisterUserInit;
+import com.budgetingui.budgettool.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserDetailsService extends UserDetailsService {
+public interface UserService extends UserDetailsService {
 
-    UserEntity registerUser(RegisterUserInit init);
+    User registerUser(RegisterUserInit init);
 
 }

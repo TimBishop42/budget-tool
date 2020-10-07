@@ -30,11 +30,21 @@ function Copyright() {
     );
 }
 
+const INITIAL_STATE = {
+    username: '',
+    email: '',
+    passwordOne: '',
+    passwordTwo: '',
+    error: null,
+};
+
 
 
 @observer
 @inject('userState')
 class SignIn extends React.Component {
+
+
 
     logUserIn() {
         console.log('Ábout to long user in');
@@ -46,15 +56,28 @@ class SignIn extends React.Component {
         console.log('Ábout to long user in')
     }
 
-    test(){
-        console.log('where are we???')
-    }
 
     constructor(props) {
         super();
+        this.state = { ...INITIAL_STATE };
     }
 
+    onSubmit = event => {
+
+    };
+
+    onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
     render() {
+        const {
+            username,
+            email,
+            passwordOne,
+            passwordTwo,
+            error,
+        } = this.state;
         return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
@@ -66,7 +89,7 @@ class SignIn extends React.Component {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={ComponentStyles.loginStyles.form} noValidate>
+                    <form onSubmit={this.onSubmit} className={ComponentStyles.loginStyles.form} noValidate>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -77,6 +100,7 @@ class SignIn extends React.Component {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            onCHange = {this.onChange}
                         />
                         <TextField
                             variant="outlined"
@@ -88,6 +112,7 @@ class SignIn extends React.Component {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onCHange = {this.onChange}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary"/>}

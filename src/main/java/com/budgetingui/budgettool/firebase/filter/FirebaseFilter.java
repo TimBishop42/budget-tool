@@ -1,5 +1,10 @@
-package com.budgetingui.budgettool.filter;
+package com.budgetingui.budgettool.firebase.filter;
 
+import com.budgetingui.budgettool.firebase.auth.FirebaseAuthenticationToken;
+import com.budgetingui.budgettool.firebase.auth.FirebaseTokenHolder;
+import com.budgetingui.budgettool.service.FirebaseService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -25,19 +30,16 @@ public class FirebaseFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         } else {
-            try {
-                FirebaseTokenHolder holder = firebaseService.parseToken(xAuth);
+            FirebaseTokenHolder holder = firebaseService.parseToken(xAuth);
 
-                String userName = holder.getUid();
+            String userName = holder.getUid();
 
-                Authentication auth = new FirebaseAuthenticationToken(userName, holder);
-                SecurityContextHolder.getContext().setAuthentication(auth);
+            Authentication auth = new FirebaseAuthenticationToken(userName, holder);
+            SecurityContextHolder.getContext().setAuthentication(auth);
 
-                filterChain.doFilter(request, response);
-            } catch (FirebaseTokenInvalidException e) {
-                throw new SecurityException(e);
-            }
+            filterChain.doFilter(request, response);
         }
     }
-    }
 }
+
+

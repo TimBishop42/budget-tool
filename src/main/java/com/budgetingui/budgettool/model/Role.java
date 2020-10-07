@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 
 @Entity(name = "ROLE")
-@Table(name = "ROLE")
 @Data
 public class Role implements GrantedAuthority {
 
@@ -20,10 +19,10 @@ public class Role implements GrantedAuthority {
     @Column(name = "AUTHORITY_")
     private String authority;
 
-    public RoleEntity() {
+    public Role() {
     }
 
-    public RoleEntity(String authority) {
+    public Role(String authority) {
         this.authority = authority;
     }
 

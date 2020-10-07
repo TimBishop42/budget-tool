@@ -111,10 +111,7 @@ class Home extends React.Component {
             <ThemeProvider theme={theme}>
                 <div className={"landing-page-navigation-container"}>
                     <div className="App-intro">
-                        <h1>Budget App</h1>
-                        <div>
-                            Welcome
-                        </div>
+
                         {/* Navigation buttons to switch between submit transactions and review transactions list */}
 
                         <Button variant="contained"
