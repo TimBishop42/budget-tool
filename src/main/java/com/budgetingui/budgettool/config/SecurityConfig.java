@@ -6,6 +6,7 @@ import com.budgetingui.budgettool.service.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,6 +36,7 @@ public class SecurityConfig {
 
     @Order(Ordered.HIGHEST_PRECEDENCE)
     @Configuration
+    @Profile("!local")
     protected static class AuthenticationSecurity extends GlobalAuthenticationConfigurerAdapter {
 
         @Resource
@@ -57,6 +59,7 @@ public class SecurityConfig {
 
     @Configuration
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
+    @Profile("!local")
     protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 //        @Value("${rs.pscode.firebase.enabled}")
