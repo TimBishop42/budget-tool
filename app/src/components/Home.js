@@ -55,9 +55,17 @@ class Home extends React.Component {
             purchaseType: 'Wedding',
             userName: 'Loz',
             isSubmitted: false,
-            activePage: 'submitPage'
+            activePage: 'submitPage',
+            isLoading: true,
+            purchases: []
 
         }
+    }
+
+    async componentDidMount() {
+        const response = await fetch('/tool/api/getTransactions');
+        const body = await response.json();
+        this.setState({purchases: body, isLoading: false});
     }
 
 
