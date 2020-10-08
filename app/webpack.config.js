@@ -47,9 +47,9 @@ module.exports = {
     contentBase: './public',
     historyApiFallback: true,
     hot: true,
-    port:8081,
+    port:3000,
     proxy: {
-        '/api/**': {
+        '/tool/**': {
           target: 'http://localhost:8080',
           secure: false,
           changeOrigin: true
