@@ -6,7 +6,6 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Provider} from "mobx-react";
 import userState from "./state/UserState";
-import Firebase, {FirebaseContext} from './auth/firebase';
 
 ReactDOM.render(
     // <FirebaseContext.Providor value={new Firebase()}>

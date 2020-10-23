@@ -38,6 +38,9 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx', '.css']
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ],
   output: {
     path: __dirname +  '/public',
     publicPath: '/',
