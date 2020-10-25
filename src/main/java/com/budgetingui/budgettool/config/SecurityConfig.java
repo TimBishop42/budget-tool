@@ -76,10 +76,7 @@ public class SecurityConfig {
             if (firebaseEnabled) {
                 http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests()//
 
-                        .antMatchers("/api/open/**").hasAnyRole(Roles.ANONYMOUS)//
-                        .antMatchers("/api/client/**").hasRole(Roles.USER)//
-                        .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
-                        .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
+                        .antMatchers("/tool/api/**").permitAll()
                         .antMatchers("/**").denyAll()//
                         .and().csrf().disable()//
                         .anonymous().authorities(Roles.ROLE_ANONYMOUS);//

@@ -3,8 +3,6 @@ package com.budgetingui.budgettool.firebase.auth;
 import com.budgetingui.budgettool.exception.FirebaseTokenInvalidException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-import com.google.firebase.tasks.Task;
-import com.google.firebase.tasks.Tasks;
 import org.springframework.util.StringUtils;
 
 public class FirebaseParser {
@@ -14,11 +12,10 @@ public class FirebaseParser {
             throw new IllegalArgumentException("FirebaseTokenBlank");
         }
         try {
-            Task<FirebaseToken> authTask = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
 
-            Tasks.await(authTask);
 
-            return new FirebaseTokenHolder(authTask.getResult());
+            return new FirebaseTokenHolder(decodedToken);
         } catch (Exception e) {
             throw new FirebaseTokenInvalidException(e.getMessage());
         }
