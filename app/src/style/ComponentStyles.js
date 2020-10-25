@@ -11,19 +11,10 @@ export const COLOUR_PANTONE_BLACK = "rgb(35,31,32)";
 export const buttonCustomStyles = createMuiTheme({
     overrides: {
         MuiButton: {
-            // label: {
-            //     fontFamily: "Questrial"
-            // },
-            // containedPrimary: {
-            //     backgroundColor: COLOUR_PANTONE_185 + " !important"
-            // },
-            // containedSecondary: {
-            //     backgroundColor: COLOUR_PANTONE_172 + " !important"
-            // },
+
             root: {
                 borderRadius: "4px !important",
                 padding: "6px 16px !important",
-                // color: "#fff !important"
             }
         }
     }

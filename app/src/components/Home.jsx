@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
-import TransactionService from "../rest/TransactionService";
+import TransactionService from "../Rest/TransactionService";
 import SubmitTransaction from "./SubmitTransaction";
-import ReviewTransaction from "./ReviewTransactions";
+import ReviewTransaction from "./ReviewTransaction";
 import Button from "@material-ui/core/Button";
 
 const PageNames = {

@@ -4,7 +4,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import { functions } from "firebase";
 
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyB4KZkGIXussltji_ruFR-dSsRIy7SZNyQ",
     authDomain: "budget-tool-311f2.firebaseapp.com",
     databaseURL: "https://budget-tool-311f2.firebaseio.com",

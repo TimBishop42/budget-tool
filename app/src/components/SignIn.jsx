@@ -12,22 +12,11 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import * as ComponentStyles from "../style/ComponentStyles";
+import * as ComponentStyles from "../Style/ComponentStyles";
 import { Link } from "@reach/router";
-import { signInWithGoogle, auth } from "../auth/firebase/firebase"
+import { signInWithGoogle, auth } from "../firebase"
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            {/*<Link color="inherit" href="https://material-ui.com/">*/}
-            {/*    Your Website*/}
-            {/*</Link>{' '}*/}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+
 
 const INITIAL_STATE = {
     username: '',
@@ -39,8 +28,6 @@ const INITIAL_STATE = {
 
 
 
-// @observer
-// @inject('userState')
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -70,9 +57,7 @@ const SignIn = () => {
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
                 <div className={ComponentStyles.loginStyles.paper}>
-                    {/* {console.log(this.props.userState.isLoggedIn)} */}
                     <Avatar className={ComponentStyles.loginStyles.avatar}>
-                        {/*<LockOutlinedIcon />*/}
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
@@ -126,7 +111,6 @@ const SignIn = () => {
                         >
                             Sign In With Google
                         </Button>
-                        {/*<RouterLink to={'/home'}>Skip</RouterLink>*/}
                         <Grid container>
                             <Grid item xs>
                                 <Link to="signUp" variant="body2">
@@ -141,9 +125,6 @@ const SignIn = () => {
                         </Grid>
                     </form>
                 </div>
-                <Box mt={8}>
-                    <Copyright/>
-                </Box>
             </Container>
         );
     }

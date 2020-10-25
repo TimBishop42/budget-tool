@@ -1,19 +1,11 @@
 import { Link } from "@reach/router";
-import { withFirebase } from '../auth/firebase/firebase';
 import React, { useContext, useState } from "react";
-import { auth, signInWithGoogle, generateUserDocument } from "../auth/firebase/firebase";
+import { auth, signInWithGoogle, generateUserDocument } from "../firebase";
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import * as ComponentStyles from "../style/ComponentStyles";
+import * as ComponentStyles from "../Style/ComponentStyles";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
-const SignUpPage = () => (
-    <div>
-        <h1>SignUp</h1>
-        <SignUpForm />
-    </div>
-);
 
 const INITIAL_STATE = {
     username: '',

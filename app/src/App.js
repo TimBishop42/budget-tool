@@ -1,6 +1,8 @@
-import React from "react";
-import Application from "./components/Application";
-import UserProvider from "./auth/firebase/UserProvider";
+import logo from './logo.svg';
+import './App.css';
+import UserProvider from "./Providers/UserProvider";
+import Application from "./Components/Application"
+
 function App() {
   return (
     <UserProvider>
@@ -8,4 +10,5 @@ function App() {
     </UserProvider>
   );
 }
+
 export default App;
