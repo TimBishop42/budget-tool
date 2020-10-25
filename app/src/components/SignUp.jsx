@@ -28,17 +28,13 @@ const SignUp = () => {
             generateUserDocument(user, { displayName });
         }
         catch (error) {
-            setError('Error Signing up with email and password');
+            console.log(error);
+            setError(""+error);
         }
-
-        setEmail("");
-        setPassword("");
-        setDisplayName("");
     };
 
     const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
-
         if (name === "userEmail") {
             setEmail(value);
         } else if (name === "userPassword") {
@@ -68,9 +64,10 @@ const SignUp = () => {
                     margin="normal"
                     required
                     fullWidth
-                    id="email"
+                    id="userEmail"
                     label="Email Address"
-                    name="email"
+                    name="userEmail"
+                    value={email}
                     autoComplete="email"
                     autoFocus
                     onChange={(event) => onChangeHandler(event)}
@@ -81,10 +78,10 @@ const SignUp = () => {
                     margin="normal"
                     required
                     fullWidth
-                    name="password"
+                    name="userPassword"
                     label="Password"
                     type="password"
-                    id="password"
+                    id="userPassword"
                     autoComplete="current-password"
                     onChange={(event) => onChangeHandler(event)}
                 />
@@ -97,6 +94,7 @@ const SignUp = () => {
                     className={ComponentStyles.loginStyles.submit}>
                     Sign Up
                         </Button>
+                        {error}
             </form>
         </Container>
     );

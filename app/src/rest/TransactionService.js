@@ -1,4 +1,6 @@
 import axios from "axios";
+// import firebase from "firebase/app";
+
 
 export class TransactionService {
     // apiBaseUrl = CONFIG.apiURL;
@@ -10,14 +12,14 @@ export class TransactionService {
  
     submitPurchase(description, amount, purchaseType, userName) {
         let url = "/tool/api/saveTransaction"
-
-        return axios.post(url, {
+        // firebase.auth().currentUser.getIdToken(true).then(idToken => 
+        axios.post(url, {
                 name: userName,
                 category: purchaseType,
                 description: description,
                 cost: amount
             },
-            {headers: {'Content-Type': 'application/json'}})
+            {headers: {'Content-Type': 'application/json'}})  //, 'X-Authorization-Firebase': 'Bearer ' + 'idToken'
     }
 
     reviewTransactions() {

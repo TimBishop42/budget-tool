@@ -5,6 +5,7 @@ import TransactionService from "../Rest/TransactionService";
 import SubmitTransaction from "./SubmitTransaction";
 import ReviewTransaction from "./ReviewTransaction";
 import Button from "@material-ui/core/Button";
+import { auth } from "../firebase"
 
 const PageNames = {
     SubmitPage: 'submitPage',
@@ -93,7 +94,8 @@ class Home extends React.Component {
     handleChange = event => {
         console.log(event);
         this.setState({
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            isSubmitted: false
         });
     };
 

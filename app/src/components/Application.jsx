@@ -14,8 +14,6 @@ import * as ComponentStyles from "../Style/ComponentStyles";
 
 function Application() {
     const user = useContext(UserContext);
-    console.log(user);
-    console.log('In the main application');
 
         return (
           <div className="App">

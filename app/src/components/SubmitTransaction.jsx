@@ -7,6 +7,7 @@ import SubmissionStatus from "./SubmittionAlert";
 import React from "react";
 
 
+
 const
     purchaseTypes = [
         {
@@ -30,11 +31,13 @@ const
         }
     ];
 
+
 class SubmitTransaction extends React.Component {
 
     constructor(props) {
         super();
     }
+
     render() {
         return (
             <Grid container direction="column" spacing={2}>

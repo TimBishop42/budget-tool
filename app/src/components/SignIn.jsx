@@ -68,9 +68,9 @@ const SignIn = () => {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
+                            id="userEmail"
                             label="Email Address"
-                            name="email"
+                            name="userEmail"
                             autoComplete="email"
                             autoFocus
                             onChange = {(event) => onChangeHandler(event)}
@@ -80,10 +80,10 @@ const SignIn = () => {
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
+                            name="userPassword"
                             label="Password"
                             type="password"
-                            id="password"
+                            id="userPassword"
                             autoComplete="current-password"
                             onChange = {(event) => onChangeHandler(event)}
                         />
@@ -106,7 +106,7 @@ const SignIn = () => {
                             fullWidth
                             variant="contained"
                             color="secondary"
-                            onClick={signInWithGoogle()}
+                            onClick={() => signInWithGoogle()}
                             className={ComponentStyles.loginStyles.submit}
                         >
                             Sign In With Google

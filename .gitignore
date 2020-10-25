@@ -1,4 +1,4 @@
-HELP.md
+*firebase-adminsdk*.jsonHELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
@@ -27,6 +27,8 @@ node_modules/
 /nbdist/
 /.nb-gradle/
 build/
+
+*firebase-adminsdk*.json
 
 ### VS Code ###
 .vscode/

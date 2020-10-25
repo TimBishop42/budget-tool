@@ -9,11 +9,11 @@ spring:
   jpa.database-platform: org.hibernate.dialect.H2Dialect
   h2.console.enabled: true
   profiles:
-    active: local
+    active:
 
 
-rs.pscode.firebase.database.url: https://testfirebaseauth-a18a7.firebaseio.com/
-rs.pscode.firebase.config.path: TestFireBaseAuth-c273d57720d5.json
+rs.pscode.firebase.database.url: https://budget-tool-311f2.firebaseio.com
+rs.pscode.firebase.config.path: budget-tool-311f2-firebase-adminsdk-i7d8m-3f908daf73.json
 
 #rs.pscode.firebase.enabled: true/false
 

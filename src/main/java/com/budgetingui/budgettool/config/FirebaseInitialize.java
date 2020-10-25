@@ -2,22 +2,20 @@ package com.budgetingui.budgettool.config;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.InputStream;
 
-//@Configuration
-public class FirebaseConfig {
+@Service
+public class FirebaseInitialize {
 
-    @Bean
-    public DatabaseReference firebaseDatabse() {
-        DatabaseReference firebase = FirebaseDatabase.getInstance().getReference();
-        return firebase;
-    }
+//    @Bean
+//    public DatabaseReference firebaseDatabse() {
+//        DatabaseReference firebase = FirebaseDatabase.getInstance().getReference();
+//        return firebase;
+//    }
 
     @Value("${rs.pscode.firebase.database.url}")
     private String databaseUrl;
@@ -33,7 +31,7 @@ public class FirebaseConfig {
          *
          * Create service account , download json
          */
-        InputStream inputStream = FirebaseConfig.class.getClassLoader().getResourceAsStream(configPath);
+        InputStream inputStream = FirebaseInitialize.class.getClassLoader().getResourceAsStream(configPath);
 
         FirebaseOptions options = new FirebaseOptions.Builder().setServiceAccount(inputStream)
                 .setDatabaseUrl(databaseUrl).build();
