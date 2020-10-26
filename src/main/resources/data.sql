@@ -14,5 +14,5 @@ INSERT INTO PURCHASE (id, name, description, category, cost, purchase_date) VALU
 -- INSERT INTO PURCHASE (id, name, description, category, cost, purchase_date) VALUES(3, 'purchase3', 'this was a cost for something', 'Alcohol', 200.00, '2012-09-17');
 -- INSERT INTO PURCHASE (id, name, description, category, cost, purchase_date) VALUES(4, 'purchase4', 'this was a cost for something', 'Alcohol', 300.00, '2012-09-17');
 
-INSERT INTO USER (userId, username, password, email) VALUES (1, '8BnRCy2pkTPn0PVYwlW2rpNLi6J2', '', 'bishoptim453@gmail.com');
-INSERT INTO ROLE (id, authority) values (1, 'user');
+--INSERT INTO USER (userId, username, password, email) VALUES (1, '8BnRCy2pkTPn0PVYwlW2rpNLi6J2', '', 'bishoptim453@gmail.com');
+--INSERT INTO ROLE (id, authority, userId) values (1, 'user', 1);

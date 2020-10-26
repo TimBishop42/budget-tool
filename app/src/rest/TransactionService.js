@@ -25,14 +25,8 @@ export class TransactionService {
     reviewTransactions() {
         let url = "/tool/api/getTransactions"
 
-        return axios.get(url)
-            // , {
-            //     name: 'Tim',
-            //     category: 'Wedding',
-            //     description: 'Bought at this place',
-            //     cost: 10.27
-            // },
-            // {headers: {'Content-Type': 'application/json'}})
+        return firebase.auth().currentUser.getIdToken(true).then(idToken => 
+         axios.get(url, {headers: {'X-Authorization-Firebase': idToken}}))
     }
 
 }

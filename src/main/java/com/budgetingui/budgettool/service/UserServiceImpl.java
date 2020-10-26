@@ -76,9 +76,9 @@ public class UserServiceImpl implements UserService {
 
         if (userDao.count() == 0) {
             User adminEntity = new User();
-            adminEntity.setUsername("admin");
+            adminEntity.setUsername("8BnRCy2pkTPn0PVYwlW2rpNLi6J2");
             adminEntity.setPassword("admin");
-            adminEntity.setEmail("savic.prvoslav@gmail.com");
+            adminEntity.setEmail("bishoptim453@gmail.com");
 
             adminEntity.setAuthorities(getAdminRoles());
             userDao.save(adminEntity);
@@ -86,7 +86,8 @@ public class UserServiceImpl implements UserService {
             User user = new User();
             user.setUsername("user1");
             user.setPassword("user1");
-            user.setEmail("savic.prvoslav@gmail.com");
+            user.setEmail("laurenjohnson42@gmail.com");
+//            user.setAuthorities(getUserRoles());
             user.setAuthorities(getUserRoles());
 
             userDao.save(user);

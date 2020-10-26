@@ -27,11 +27,13 @@ public class SecurityConfig {
         public static final String ANONYMOUS = "ANONYMOUS";
         public static final String USER = "USER";
         static public final String ADMIN = "ADMIN";
+        static public final String TEST = "TEST";
 
         private static final String ROLE_ = "ROLE_";
         public static final String ROLE_ANONYMOUS = ROLE_ + ANONYMOUS;
         public static final String ROLE_USER = ROLE_ + USER;
         static public final String ROLE_ADMIN = ROLE_ + ADMIN;
+        static public final String ROLE_TEST = ROLE_ + TEST;
     }
 
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -76,8 +78,10 @@ public class SecurityConfig {
             if (firebaseEnabled) {
                 http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests()//
 
-                        .antMatchers("/tool/api/**").permitAll()
-                        .antMatchers("/h2-console/**").permitAll()
+                        .antMatchers("/tool/api/**").hasAnyRole(Roles.ADMIN, Roles.USER)
+                        .antMatchers("/h2-console/**").permitAll()  //Remove later - for H2
+                        .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
+                        .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
                         .antMatchers("/**").denyAll()//
                         .and().csrf().disable()//
                         .anonymous().authorities(Roles.ROLE_ANONYMOUS);//

@@ -85,7 +85,7 @@ class Home extends React.Component {
         } else {
             console.log("already submitted");
         }
-    }
+    }      
 
 
     handleChange = event => {

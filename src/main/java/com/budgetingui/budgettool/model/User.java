@@ -1,5 +1,6 @@
 package com.budgetingui.budgettool.model;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,26 +10,28 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity(name = "user")
+@Data
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 4815877135015943617L;
 
-    @Id
-    @Column(name = "USERID") //Why explicitly define the name? default hibernate breaks casing
+    @Id()
+    @Column(name = "ID_")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    private Long id;
 
-    @Column(name = "USERNAME", nullable = false, unique = true)
+    @Column(name = "USERNAME_", nullable = false, unique = true)
     private String username;
 
-    @Column
+    @Column(name = "PASSWORD_", nullable = false)
     private String password;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL_", nullable = false)
     @Email
+    //TODO add unique index
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> authorities;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -60,11 +63,11 @@ public class User implements UserDetails {
     }
 
     public void setUserId(Long id) {
-        this.userId = id;
+        this.id = id;
     }
 
     public Long getUserId() {
-        return userId;
+        return id;
     }
 
     public void setUsername(String username) {

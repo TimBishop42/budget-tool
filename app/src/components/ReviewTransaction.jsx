@@ -17,10 +17,15 @@ class ReviewTransaction extends React.Component {
 
     async componentDidMount() {
         console.log("getting transaction list")
-        const response = await fetch('/tool/api/getTransactions');
-        const body = await response.json();
-        this.setState({ transactions: body });
-    }
+        TransactionService.reviewTransactions()
+                .catch((error) => {
+                    console.log(error);
+                })
+                .then(response => response.data)
+                .then(data => this.setState({ transactions: data }));
+                }
+
+    
 
     // async getPurchases() {
     //     TransactionService.reviewTransactions()
