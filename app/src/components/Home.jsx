@@ -1,10 +1,11 @@
 import React from 'react';
 
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
-import TransactionService from "../rest/TransactionService";
+import TransactionService from "../Rest/TransactionService";
 import SubmitTransaction from "./SubmitTransaction";
-import ReviewTransaction from "./ReviewTransactions";
+import ReviewTransaction from "./ReviewTransaction";
 import Button from "@material-ui/core/Button";
+import { auth } from "../firebase"
 
 const PageNames = {
     SubmitPage: 'submitPage',
@@ -55,9 +56,17 @@ class Home extends React.Component {
             purchaseType: 'Wedding',
             userName: 'Loz',
             isSubmitted: false,
-            activePage: 'submitPage'
+            activePage: 'submitPage',
+            isLoading: true,
+            purchases: []
 
         }
+    }
+
+    async componentDidMount() {
+        const response = await fetch('/tool/api/getTransactions');
+        const body = await response.json();
+        this.setState({purchases: body, isLoading: false});
     }
 
 
@@ -66,12 +75,9 @@ class Home extends React.Component {
             TransactionService.submitPurchase(this.state.description, this.state.amount, this.state.purchaseType, this.state.userName)
                 .catch((error) => {
                     console.log(error);
-
-
                 })
                 .then((response) => {
                     console.log("api response: ", response)
-
                     this.setState({
                         isSubmitted: true
                     });
@@ -79,13 +85,14 @@ class Home extends React.Component {
         } else {
             console.log("already submitted");
         }
-    }
+    }      
 
 
     handleChange = event => {
         console.log(event);
         this.setState({
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            isSubmitted: false
         });
     };
 

@@ -34,6 +34,9 @@ public class BudgetService {
     }
 
     public List <Purchase> getAllTransactions() {
-        return purchaseRepository.findAll();
+        logger.info("Getting all transactions");
+        List <Purchase> purchases = purchaseRepository.findAll();
+        logger.info("Retrieved: {}", purchases);
+        return purchases;
     }
 }

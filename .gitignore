@@ -1,4 +1,4 @@
-HELP.md
+*firebase-adminsdk*.jsonHELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
@@ -28,5 +28,10 @@ node_modules/
 /.nb-gradle/
 build/
 
+*firebase-adminsdk*.json
+
 ### VS Code ###
 .vscode/
+
+package-lock.json
+yarn.lock

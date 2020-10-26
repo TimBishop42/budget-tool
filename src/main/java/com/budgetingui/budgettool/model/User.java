@@ -1,5 +1,6 @@
 package com.budgetingui.budgettool.model;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,11 +10,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity(name = "user")
+@Data
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 4815877135015943617L;
 
-    @Id
+    @Id()
     @Column(name = "ID_")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,6 +28,7 @@ public class User implements UserDetails {
 
     @Column(name = "EMAIL_", nullable = false)
     @Email
+    //TODO add unique index
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -59,11 +62,11 @@ public class User implements UserDetails {
         return false;
     }
 
-    public void setId(Long id) {
+    public void setUserId(Long id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Long getUserId() {
         return id;
     }
 
