@@ -77,9 +77,11 @@ public class SecurityConfig {
                 http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests()//
 
                         .antMatchers("/tool/api/**").permitAll()
+                        .antMatchers("/h2-console/**").permitAll()
                         .antMatchers("/**").denyAll()//
                         .and().csrf().disable()//
                         .anonymous().authorities(Roles.ROLE_ANONYMOUS);//
+                http.headers().frameOptions().disable(); //for h2-db
             } else {
                 http.httpBasic().and().authorizeRequests()//
 

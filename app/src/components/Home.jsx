@@ -75,12 +75,9 @@ class Home extends React.Component {
             TransactionService.submitPurchase(this.state.description, this.state.amount, this.state.purchaseType, this.state.userName)
                 .catch((error) => {
                     console.log(error);
-
-
                 })
                 .then((response) => {
                     console.log("api response: ", response)
-
                     this.setState({
                         isSubmitted: true
                     });

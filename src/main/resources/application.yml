@@ -6,14 +6,20 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password:
-  jpa.database-platform: org.hibernate.dialect.H2Dialect
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
   h2.console.enabled: true
   profiles:
     active:
 
 
+
 rs.pscode.firebase.database.url: https://budget-tool-311f2.firebaseio.com
-rs.pscode.firebase.config.path: budget-tool-311f2-firebase-adminsdk-i7d8m-3f908daf73.json
+rs.pscode.firebase.config.path: budget-tool-311f2-firebase-adminsdk-i7d8m-5138be61f4.json
 
 #rs.pscode.firebase.enabled: true/false
+hibernate:
+  show_sql: true
+  format_sql: true
 

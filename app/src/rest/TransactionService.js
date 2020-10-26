@@ -1,5 +1,5 @@
 import axios from "axios";
-// import firebase from "firebase/app";
+import firebase from "firebase/app";
 
 
 export class TransactionService {
@@ -12,15 +12,15 @@ export class TransactionService {
  
     submitPurchase(description, amount, purchaseType, userName) {
         let url = "/tool/api/saveTransaction"
-        // firebase.auth().currentUser.getIdToken(true).then(idToken => 
-        axios.post(url, {
+        return firebase.auth().currentUser.getIdToken(true).then(idToken => 
+         axios.post(url, {
                 name: userName,
                 category: purchaseType,
                 description: description,
                 cost: amount
             },
-            {headers: {'Content-Type': 'application/json'}})  //, 'X-Authorization-Firebase': 'Bearer ' + 'idToken'
-    }
+            {headers: {'Content-Type': 'application/json' , 'X-Authorization-Firebase': idToken}})
+        )}
 
     reviewTransactions() {
         let url = "/tool/api/getTransactions"

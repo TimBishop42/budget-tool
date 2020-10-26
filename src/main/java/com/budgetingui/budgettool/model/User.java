@@ -14,21 +14,21 @@ public class User implements UserDetails {
     private static final long serialVersionUID = 4815877135015943617L;
 
     @Id
-    @Column(name = "ID_")
+    @Column(name = "USERID") //Why explicitly define the name? default hibernate breaks casing
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long userId;
 
-    @Column(name = "USERNAME_", nullable = false, unique = true)
+    @Column(name = "USERNAME", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "PASSWORD_", nullable = false)
+    @Column
     private String password;
 
-    @Column(name = "EMAIL_", nullable = false)
+    @Column(name = "EMAIL", nullable = false)
     @Email
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
     private List<Role> authorities;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -59,12 +59,12 @@ public class User implements UserDetails {
         return false;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long id) {
+        this.userId = id;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
     public void setUsername(String username) {
