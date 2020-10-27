@@ -114,7 +114,7 @@
 				<version>1.10.2</version>
 				<configuration>
 					<installDirectory>target</installDirectory>
-					<workingDirectory>app</workingDirectory>
+					<workingDirectory>src/main/ui</workingDirectory>
 				</configuration>
 				<executions>
 					<execution>
@@ -170,7 +170,7 @@
 							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>./app/build/static</directory>
+									<directory>./src/main/ui/build</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>

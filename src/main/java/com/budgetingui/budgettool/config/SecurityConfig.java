@@ -77,12 +77,12 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             if (firebaseEnabled) {
                 http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests()//
-
+                        .antMatchers("/").permitAll() //For returning static content - maybe unsafe?
                         .antMatchers("/tool/api/**").hasAnyRole(Roles.ADMIN, Roles.USER)
                         .antMatchers("/h2-console/**").permitAll()  //Remove later - for H2
                         .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
                         .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
-                        .antMatchers("/**").denyAll()//
+//                        .antMatchers("/**").denyAll()//
                         .and().csrf().disable()//
                         .anonymous().authorities(Roles.ROLE_ANONYMOUS);//
                 http.headers().frameOptions().disable(); //for h2-db
