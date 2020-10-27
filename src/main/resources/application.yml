@@ -16,7 +16,7 @@ spring:
 
 
 rs.pscode.firebase.database.url: https://budget-tool-311f2.firebaseio.com
-rs.pscode.firebase.config.path: budget-tool-311f2-firebase-adminsdk-i7d8m-5138be61f4.json
+rs.pscode.firebase.config.path: budget-tool-311f2-firebase-adminsdk-i7d8m-3f908daf73.json
 
 #rs.pscode.firebase.enabled: true/false
 hibernate:
