@@ -13,7 +13,7 @@ public class Role implements GrantedAuthority {
 
     @Id
     @Column(name = "ID_")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "AUTHORITY_")

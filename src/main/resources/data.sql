@@ -9,7 +9,7 @@
 --  cost DECIMAL DEFAULT NULL
 --
 --);
-INSERT INTO PURCHASE (id, name, description, category, cost, purchase_date) VALUES(100, 'purchase1', 'this was a cost for something', 'Alcohol',100.00, '2012-09-17');
+--INSERT INTO PURCHASE (id, name, description, category, cost, purchase_date) VALUES(100, 'purchase1', 'this was a cost for something', 'Alcohol',100.00, '2012-09-17');
 -- INSERT INTO PURCHASE (id, name, description, category, cost, purchase_date) VALUES(2, 'purchase2', 'this was a cost for something', 'Alcohol', 150.00, '2012-09-17');
 -- INSERT INTO PURCHASE (id, name, description, category, cost, purchase_date) VALUES(3, 'purchase3', 'this was a cost for something', 'Alcohol', 200.00, '2012-09-17');
 -- INSERT INTO PURCHASE (id, name, description, category, cost, purchase_date) VALUES(4, 'purchase4', 'this was a cost for something', 'Alcohol', 300.00, '2012-09-17');

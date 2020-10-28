@@ -11,13 +11,14 @@ import java.util.List;
 
 @Entity(name = "user")
 @Data
+@Table(name = "USER")
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 4815877135015943617L;
 
     @Id()
     @Column(name = "ID_")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "USERNAME_", nullable = false, unique = true)
@@ -31,7 +32,9 @@ public class User implements UserDetails {
     //TODO add unique index
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_")
     private List<Role> authorities;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
