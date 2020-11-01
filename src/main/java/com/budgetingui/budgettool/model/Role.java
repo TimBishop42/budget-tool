@@ -19,6 +19,10 @@ public class Role implements GrantedAuthority {
     @Column(name = "AUTHORITY_")
     private String authority;
 
+    @Column(name = "USERID_")
+    @JoinColumn(name="ID_")
+    private Long userId;
+
     public Role() {
     }
 
@@ -26,15 +30,8 @@ public class Role implements GrantedAuthority {
         this.authority = authority;
     }
 
+    @Override
     public String getAuthority() {
         return authority;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }

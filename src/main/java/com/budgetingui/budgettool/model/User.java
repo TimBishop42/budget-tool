@@ -29,12 +29,11 @@ public class User implements UserDetails {
 
     @Column(name = "EMAIL_", nullable = false)
     @Email
-    //TODO add unique index
     private String email;
 
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ID_")
+    @JoinColumn(name = "USERID_")
     private List<Role> authorities;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

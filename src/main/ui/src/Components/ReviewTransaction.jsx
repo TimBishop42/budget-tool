@@ -8,71 +8,62 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 650,
+        minWidth: 100,
     },
 });
-// const classes = useStyles();
 
-// export default function BasicTable() {
-//     const classes = useStyles();
-// }
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+      fontSize: 18,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+  
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  }))(TableRow);
 
+function ReviewTransaction (props) {
+    const classes = useStyles();
 
-class ReviewTransaction extends React.Component {
-
-
-    constructor(props) {
-        super();
-        this.state = {
-            transactions: [],
-            isLoading: true,
-
-        }
-    }
-
-    async componentDidMount() {
-        console.log("getting transaction list")
-        TransactionService.reviewTransactions()
-            .catch((error) => {
-                console.log(error);
-            })
-            .then(response => response.data)
-            .then(data => this.setState({ transactions: data }));
-    }
-
-
-
-    render() {
         return (
             <div className="transactins-review">
                 <h2>Review Transactions</h2>
                 <TableContainer component={Paper}>
-                    <Table  size="small" aria-label="simple table">
+                    <Table  className={classes.table} size="small" aria-label="simple table">
                         <TableHead>
-                            <TableRow>
-                                <TableCell align="right">Category</TableCell>
-                                <TableCell align="right">Description</TableCell>
-                                <TableCell align="right">Name</TableCell>
-                                <TableCell align="right">Cost</TableCell>
-                            </TableRow>
+                            <StyledTableRow>
+                                <StyledTableCell align="left">Category</StyledTableCell>
+                                <StyledTableCell align="left">Description</StyledTableCell>
+                                <StyledTableCell align="left">Name</StyledTableCell>
+                                <StyledTableCell align="left">Cost</StyledTableCell>
+                            </StyledTableRow>
                         </TableHead>
                         <TableBody>
 
-                            {this.state.transactions.map(transaction =>
-                                <TableRow key={transaction.name}>
+                            {props.transactions.map(transaction =>
+                                <StyledTableRow key={transaction.name}>
                                     {/* <TableCell component="th" scope="row">
                                         {transaction.name}
                                     </TableCell> */}
-                                    <TableCell align="right">{transaction.category}</TableCell>
-                                    <TableCell align="right">{transaction.description}</TableCell>
-                                    <TableCell align="right">{transaction.name}</TableCell>
-                                    <TableCell align="right">{transaction.cost}</TableCell>
-                                </TableRow>
+                                    <StyledTableCell align="left">{transaction.category}</StyledTableCell>
+                                    <StyledTableCell align="left">{transaction.description}</StyledTableCell>
+                                    <StyledTableCell align="left">{transaction.name}</StyledTableCell>
+                                    <StyledTableCell align="left">{transaction.cost}</StyledTableCell>
+                                </StyledTableRow>
                             )}
                         </TableBody>
                     </Table>
@@ -84,6 +75,6 @@ class ReviewTransaction extends React.Component {
     }
 
 
-}
+
 
 export default ReviewTransaction;
