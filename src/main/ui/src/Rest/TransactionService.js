@@ -29,6 +29,13 @@ export class TransactionService {
          axios.get(url, {headers: {'X-Authorization-Firebase': idToken}}))
     }
 
+    getUserRoles() {
+        let url = "/tool/api/getRoles"
+
+        return firebase.auth().currentUser.getIdToken(true).then(idToken => 
+         axios.get(url, {headers: {'X-Authorization-Firebase': idToken}}))
+    }
+
 }
 
 export default new TransactionService();

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import '../App.css';
 // import 'typeface-roboto';
 import Home from './Home';
+import DefaultScreen from './DefaultScreen';
 import SignIn from './SignIn';
 import { Router } from "@reach/router";
 import SignUp from "./SignUp";
@@ -14,6 +15,19 @@ import * as ComponentStyles from "../Style/ComponentStyles";
 
 function Application() {
     const user = useContext(UserContext);
+    const role = useContext(UserContext);
+    console.log(role)
+    console.log(user)
+
+    function renderAuthenticatedContent(user){
+      if(user.roles) {
+        return <Home />
+      }
+      else {
+        return <DefaultScreen />
+      }
+
+    }
 
         return (
           <div className="App">
@@ -33,8 +47,8 @@ function Application() {
 
                 </header>
                     <div className="App-main"></div>
-            {user ?
-            <Home />
+            {user ? 
+            renderAuthenticatedContent(user)
           :
             <Router>
               <SignIn path="/" />

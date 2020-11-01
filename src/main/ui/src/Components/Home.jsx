@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import TransactionService from "../Rest/TransactionService";
 import SubmitTransaction from "./SubmitTransaction";
 import ReviewTransaction from "./ReviewTransaction";
@@ -68,8 +68,15 @@ class Home extends React.Component {
             .catch((error) => {
                 console.log(error);
             })
-            .then(response => response.data)
-            .then(data => this.setState({ transactions: data }));
+            .then(response => {
+                if (response) {
+                    this.setState({ transactions: response.data })
+                }
+                else {
+                    return null;
+                }
+            })
+            // .then(data => this.setState({ transactions: data }));
     }
 
     async submitPurchase() {
@@ -87,11 +94,11 @@ class Home extends React.Component {
         } else {
             console.log("already submitted");
         }
-    }      
+    }
 
 
     handleChange = event => {
-        console.log("Setting :"+event.target.name +" To: " +event.target.value);
+        console.log("Setting :" + event.target.name + " To: " + event.target.value);
         this.setState({
             [event.target.name]: event.target.value,
             isSubmitted: false
@@ -111,14 +118,20 @@ class Home extends React.Component {
         this.setState({
             activePage: buttonChoice
         })
-        if(buttonChoice === 'reviewPage') {
+        if (buttonChoice === 'reviewPage') {
             //Reload the transactions
             TransactionService.reviewTransactions()
-            .catch((error) => {
-                console.log(error);
-            })
-            .then(response => response.data)
-            .then(data => this.setState({ transactions: data }));
+                .catch((error) => {
+                    console.log(error);
+                })
+                .then(response => {
+                    if (response) {
+                        this.setState({ transactions: response.data })
+                    }
+                    else {
+                        return null;
+                    }
+                })
         }
     }
 
@@ -133,44 +146,44 @@ class Home extends React.Component {
                         {/* Navigation buttons to switch between submit transactions and review transactions list */}
 
                         <Button variant="contained"
-                                color={this.state.activePage === PageNames.SubmitPage ? "secondary" : "primary"}
-                                style={{marginRight: 8}} onClick={() => this.changeView(PageNames.SubmitPage)}>
+                            color={this.state.activePage === PageNames.SubmitPage ? "secondary" : "primary"}
+                            style={{ marginRight: 8 }} onClick={() => this.changeView(PageNames.SubmitPage)}>
                             Submit
                         </Button>
 
                         <Button variant="contained"
-                                color={this.state.activePage === PageNames.ReviewPage ? "secondary" : "primary"}
-                                style={{marginLeft: 8}} onClick={() => this.changeView(PageNames.ReviewPage)}>
+                            color={this.state.activePage === PageNames.ReviewPage ? "secondary" : "primary"}
+                            style={{ marginLeft: 8 }} onClick={() => this.changeView(PageNames.ReviewPage)}>
                             Review
                         </Button>
                     </div>
                 </div>
 
-        {
-            ((this.state.activePage === PageNames.SubmitPage)) ? (
-                <div className={"landing-page-component-container"}>
-                    <SubmitTransaction
-                        purchaseType={this.state.purchaseType}
-                        username={this.state.userName}
-                        amount={this.state.amount}
-                        description={this.state.description}
-                        isSubmitted={this.state.isSubmitted}
-                        handleChange={this.handleChange.bind(this)}
-                        submitPurchase={this.submitPurchase.bind(this)}
-                        submittionStatus={this.submittionStatus.bind(this)}/>
-                </div>
-            ) : ((this.state.activePage === PageNames.ReviewPage)) && (
-                <div className={"landing-page-component-container"}>
-                    <ReviewTransaction
-                    transactions={this.state.transactions}
-                    />
-                </div>
-            )
-        }
+                {
+                    ((this.state.activePage === PageNames.SubmitPage)) ? (
+                        <div className={"landing-page-component-container"}>
+                            <SubmitTransaction
+                                purchaseType={this.state.purchaseType}
+                                username={this.state.userName}
+                                amount={this.state.amount}
+                                description={this.state.description}
+                                isSubmitted={this.state.isSubmitted}
+                                handleChange={this.handleChange.bind(this)}
+                                submitPurchase={this.submitPurchase.bind(this)}
+                                submittionStatus={this.submittionStatus.bind(this)} />
+                        </div>
+                    ) : ((this.state.activePage === PageNames.ReviewPage)) && (
+                        <div className={"landing-page-component-container"}>
+                            <ReviewTransaction
+                                transactions={this.state.transactions}
+                            />
+                        </div>
+                    )
+                }
 
-    </ThemeProvider>
-    )
+            </ThemeProvider>
+        )
     }
-    }
+}
 
-    export default Home;
+export default Home;

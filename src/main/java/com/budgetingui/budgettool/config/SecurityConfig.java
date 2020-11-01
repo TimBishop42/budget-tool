@@ -78,8 +78,9 @@ public class SecurityConfig {
             if (firebaseEnabled) {
                 http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests()//
                         .antMatchers("/").permitAll() //For returning static content - maybe unsafe?
-                        .antMatchers("/tool/api/**").hasAnyRole(Roles.ADMIN, Roles.USER)
-                        .antMatchers("/h2-console/**").permitAll()  //Remove later - for H2
+                        .antMatchers("/tool/api/getTransactions").hasAnyRole(Roles.ADMIN, Roles.USER)
+                        .antMatchers("/tool/api/getRoles").permitAll()
+                        .antMatchers("/tool/api/saveTransaction").hasAnyRole(Roles.ADMIN, Roles.USER)  //Remove later - for H2
                         .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
                         .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
 //                        .antMatchers("/**").denyAll()//
