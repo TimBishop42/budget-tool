@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 *firebase-adminsdk*.json
+
+secret-stuff.yml

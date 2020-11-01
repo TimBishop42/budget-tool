@@ -13,7 +13,7 @@ import java.util.Date;
 public class Purchase {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String category;
     private String description;

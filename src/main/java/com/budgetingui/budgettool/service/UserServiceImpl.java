@@ -74,6 +74,7 @@ public class UserServiceImpl implements UserService {
     @PostConstruct
     public void init() {
 
+        //If there are no users in the DB - set some default users
         if (userDao.count() == 0) {
             User adminEntity = new User();
             adminEntity.setUsername("8BnRCy2pkTPn0PVYwlW2rpNLi6J2");
@@ -109,11 +110,6 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     private Role getRole(String authority) {
-        Role adminRole = roleRepository.findByAuthority(authority);
-        if (adminRole == null) {
-            return new Role(authority);
-        } else {
-            return adminRole;
-        }
+        return new Role(authority);
     }
 }

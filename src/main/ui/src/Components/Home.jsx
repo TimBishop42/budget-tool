@@ -53,22 +53,24 @@ class Home extends React.Component {
         this.state = {
             description: '',
             amount: '',
-            purchaseType: 'Wedding',
-            userName: 'Loz',
+            purchaseType: '',
+            userName: '',
             isSubmitted: false,
             activePage: 'submitPage',
             isLoading: true,
-            purchases: []
+            transactions: []
 
         }
     }
 
     async componentDidMount() {
-        const response = await fetch('/tool/api/getTransactions');
-        const body = await response.json();
-        this.setState({purchases: body, isLoading: false});
+        TransactionService.reviewTransactions()
+            .catch((error) => {
+                console.log(error);
+            })
+            .then(response => response.data)
+            .then(data => this.setState({ transactions: data }));
     }
-
 
     async submitPurchase() {
         if (!this.state.isSubmitted) {
@@ -89,7 +91,7 @@ class Home extends React.Component {
 
 
     handleChange = event => {
-        console.log(event);
+        console.log("Setting :"+event.target.name +" To: " +event.target.value);
         this.setState({
             [event.target.name]: event.target.value,
             isSubmitted: false
@@ -109,6 +111,15 @@ class Home extends React.Component {
         this.setState({
             activePage: buttonChoice
         })
+        if(buttonChoice === 'reviewPage') {
+            //Reload the transactions
+            TransactionService.reviewTransactions()
+            .catch((error) => {
+                console.log(error);
+            })
+            .then(response => response.data)
+            .then(data => this.setState({ transactions: data }));
+        }
     }
 
 
@@ -150,7 +161,9 @@ class Home extends React.Component {
                 </div>
             ) : ((this.state.activePage === PageNames.ReviewPage)) && (
                 <div className={"landing-page-component-container"}>
-                    <ReviewTransaction/>
+                    <ReviewTransaction
+                    transactions={this.state.transactions}
+                    />
                 </div>
             )
         }
