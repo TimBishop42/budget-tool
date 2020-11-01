@@ -2,22 +2,24 @@ import React, { Component, createContext } from "react";
 import { auth, generateUserDocument } from "../firebase";
 
 
+
 export const UserContext = createContext({ user: null });
 
 class UserProvider extends Component {
   state = {
-    user: null
+    user: null,
+    role: null
   };
 
   
   
   componentDidMount = async () => {
-    console.log("just before auth state changed")
     auth.onAuthStateChanged(async userAuth => {
-      console.log("In onAuthStateChanged")
       const user = await generateUserDocument(userAuth);
+      console.log("Getting user roles")
       this.setState({ user });
     });
+    
 
 
   };

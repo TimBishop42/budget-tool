@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,6 +30,11 @@ public class BudgetingController {
     public ResponseEntity<?> getTransactions () {
         logger.info("Retrieving Transaction History");
         return new ResponseEntity<List<Purchase>>(budgetService.getAllTransactions(), HttpStatus.OK);
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/getRoles")
+    public ResponseEntity<?> getRoles () {
+        logger.info("Getting user roles for user");
+        return new ResponseEntity<>(budgetService.getUserRoles(), HttpStatus.OK);
     }
 
 
