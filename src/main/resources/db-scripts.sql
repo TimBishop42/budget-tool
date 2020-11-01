@@ -15,8 +15,10 @@ CREATE  TABLE user(
 );
 
 CREATE TABLE role(
-    ID_ BIGINT AUTO_INCREMENT  PRIMARY KEY,
-    AUTHORITY_ VARCHAR(255)
+    ID_ INT AUTO_INCREMENT  PRIMARY KEY,
+    AUTHORITY_ VARCHAR(255),
+    USERID_ INT,
+    constraint fk_authorities_user foreign key(USERID_) references user(ID_)
 );
 
 INSERT INTO purchase (id, name, description, category, cost, purchase_date) VALUES(100, 'purchase1', 'this was a cost for something', 'Alcohol',100.00, '2012-09-17');
