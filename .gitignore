@@ -29,7 +29,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-application-secret.yml
-budget-tool-311f2-firebase-adminsdk-i7d8m-5138be61f4.json
-
