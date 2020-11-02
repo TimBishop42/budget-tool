@@ -8,17 +8,12 @@ const useStyles = makeStyles({
 });
 
 
-function UserAdministration (props) {
+function UserAdministration(props) {
     const classes = useStyles();
 
     return (
-        <div className="transactins-review">
-
-            </div>
-
-            )
-
-
+        <div >Use this page to grant roles to newly registered users</div>
+    )
 
 }
 

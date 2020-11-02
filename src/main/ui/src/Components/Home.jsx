@@ -4,6 +4,7 @@ import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/sty
 import TransactionService from "../Rest/TransactionService";
 import SubmitTransaction from "./SubmitTransaction";
 import ReviewTransaction from "./ReviewTransaction";
+import UserAdministration from './UserAdministration'
 import Button from "@material-ui/core/Button";
 import { auth } from "../firebase"
 
@@ -149,6 +150,43 @@ class Home extends React.Component {
         }
     }
 
+    returnSelectedView() {
+            if(this.state.activePage === PageNames.SubmitPage) {
+                console.log ("going to try and return submit page");
+                return( 
+                <div className={"landing-page-component-container"}>
+                    <SubmitTransaction
+                        purchaseType={this.state.purchaseType}
+                        username={this.state.userName}
+                        amount={this.state.amount}
+                        description={this.state.description}
+                        isSubmitted={this.state.isSubmitted}
+                        handleChange={this.handleChange.bind(this)}
+                        submitPurchase={this.submitPurchase.bind(this)}
+                        submittionStatus={this.submittionStatus.bind(this)} />
+                </div>
+                )
+            }
+        
+        else if (this.state.activePage === PageNames.ReviewPage) {
+
+            console.log ("going to try and return review page");
+            return(
+                <div className={"landing-page-component-container"}>
+                    <ReviewTransaction
+                        transactions={this.state.transactions}
+                    />
+                </div>
+            )
+        }
+        else if(this.state.activePage === PageNames.AdminPage) {
+            console.log ("going to try and return admin page");
+            return(
+                <UserAdministration />
+            )
+        }
+    }
+
 
     render() {
 
@@ -175,25 +213,7 @@ class Home extends React.Component {
                 </div>
 
                 {
-                    ((this.state.activePage === PageNames.SubmitPage)) ? (
-                        <div className={"landing-page-component-container"}>
-                            <SubmitTransaction
-                                purchaseType={this.state.purchaseType}
-                                username={this.state.userName}
-                                amount={this.state.amount}
-                                description={this.state.description}
-                                isSubmitted={this.state.isSubmitted}
-                                handleChange={this.handleChange.bind(this)}
-                                submitPurchase={this.submitPurchase.bind(this)}
-                                submittionStatus={this.submittionStatus.bind(this)} />
-                        </div>
-                    ) : ((this.state.activePage === PageNames.ReviewPage)) && (
-                        <div className={"landing-page-component-container"}>
-                            <ReviewTransaction
-                                transactions={this.state.transactions}
-                            />
-                        </div>
-                    )
+                    this.returnSelectedView()
                 }
 
             </ThemeProvider>
