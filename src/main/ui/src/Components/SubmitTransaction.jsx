@@ -40,7 +40,7 @@ class SubmitTransaction extends React.Component {
 
     render() {
         return (
-            <Grid container direction="column" spacing={2}>
+            <Grid container style={{ marginTop: 8 }}  direction="column" spacing={2}>
                 <Grid item>
                     <TextField
                         placeholder={"Purchase Type"}

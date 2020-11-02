@@ -9,7 +9,8 @@ import { auth } from "../firebase"
 
 const PageNames = {
     SubmitPage: 'submitPage',
-    ReviewPage: 'reviewPage'
+    ReviewPage: 'reviewPage',
+    AdminPage: 'adminPage'
 };
 
 const
@@ -47,7 +48,7 @@ const theme = createMuiTheme({
 
 class Home extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.handleChange = this.handleChange.bind(this);
         this.submitPurchase = this.submitPurchase.bind(this);
         this.state = {
@@ -76,7 +77,7 @@ class Home extends React.Component {
                     return null;
                 }
             })
-            // .then(data => this.setState({ transactions: data }));
+        // .then(data => this.setState({ transactions: data }));
     }
 
     async submitPurchase() {
@@ -111,6 +112,19 @@ class Home extends React.Component {
             return "Submit"
         } else {
             return "Submitted"
+        }
+    }
+
+    showAdminFunction() {
+        console.log(this.props.user)
+        if (this.props.user.roles === 'ROLE_ANONYMOUS') {
+            return (
+                <Button variant="contained"
+                    color={this.state.activePage === PageNames.AdminPage ? "secondary" : "primary"}
+                    style={{ marginLeft: 16 }} onClick={() => this.changeView(PageNames.AdminPage)}>
+                    User Admin
+        </Button>
+            )
         }
     }
 
@@ -156,6 +170,7 @@ class Home extends React.Component {
                             style={{ marginLeft: 8 }} onClick={() => this.changeView(PageNames.ReviewPage)}>
                             Review
                         </Button>
+                        {this.showAdminFunction()}
                     </div>
                 </div>
 
