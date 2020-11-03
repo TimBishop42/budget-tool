@@ -37,6 +37,12 @@ public class BudgetingController {
         return new ResponseEntity<>(budgetService.getUserRoles(), HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/admin/getAllUsers")
+    public ResponseEntity<?> getAllUsers() {
+        logger.info("Getting a list of all users for the user admin function");
+        return new ResponseEntity<>(budgetService.getAllUsers(), HttpStatus.OK);
+    }
+
 
 //    @RequestMapping(value = "/")
 //    public String index() {

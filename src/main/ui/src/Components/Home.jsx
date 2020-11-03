@@ -60,6 +60,7 @@ class Home extends React.Component {
             isSubmitted: false,
             activePage: 'submitPage',
             isLoading: true,
+            users: [],
             transactions: []
 
         }
@@ -118,7 +119,7 @@ class Home extends React.Component {
 
     showAdminFunction() {
         console.log(this.props.user)
-        if (this.props.user.roles === 'ROLE_ANONYMOUS') {
+        if (this.props.user.roles === 'ROLE_ADMIN') {
             return (
                 <Button variant="contained"
                     color={this.state.activePage === PageNames.AdminPage ? "secondary" : "primary"}
@@ -148,12 +149,27 @@ class Home extends React.Component {
                     }
                 })
         }
+        else if (this.props.user.roles === 'ROLE_ADMIN' && buttonChoice === 'adminPage') {
+            TransactionService.getAllUsers()
+                .catch((error) => {
+                    console.log(error);
+                })
+                .then(response => {
+                    if (response) {
+                        console.log(response);
+                        this.setState({ users: response.data })
+                    }
+                    else {
+                        return null;
+                    }
+                })
+        }
     }
 
     returnSelectedView() {
-            if(this.state.activePage === PageNames.SubmitPage) {
-                console.log ("going to try and return submit page");
-                return( 
+        if (this.state.activePage === PageNames.SubmitPage) {
+            console.log("going to try and return submit page");
+            return (
                 <div className={"landing-page-component-container"}>
                     <SubmitTransaction
                         purchaseType={this.state.purchaseType}
@@ -165,13 +181,13 @@ class Home extends React.Component {
                         submitPurchase={this.submitPurchase.bind(this)}
                         submittionStatus={this.submittionStatus.bind(this)} />
                 </div>
-                )
-            }
-        
+            )
+        }
+
         else if (this.state.activePage === PageNames.ReviewPage) {
 
-            console.log ("going to try and return review page");
-            return(
+            console.log("going to try and return review page");
+            return (
                 <div className={"landing-page-component-container"}>
                     <ReviewTransaction
                         transactions={this.state.transactions}
@@ -179,9 +195,9 @@ class Home extends React.Component {
                 </div>
             )
         }
-        else if(this.state.activePage === PageNames.AdminPage) {
-            console.log ("going to try and return admin page");
-            return(
+        else if (this.state.activePage === PageNames.AdminPage) {
+            console.log("going to try and return admin page");
+            return (
                 <UserAdministration />
             )
         }

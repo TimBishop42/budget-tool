@@ -12,7 +12,7 @@ export class TransactionService {
  
     submitPurchase(description, amount, purchaseType, userName) {
         let url = "/tool/api/saveTransaction"
-        return firebase.auth().currentUser.getIdToken(true).then(idToken => 
+        return firebase.auth().currentUser.getIdToken(false).then(idToken => 
          axios.post(url, {
                 name: userName,
                 category: purchaseType,
@@ -25,15 +25,22 @@ export class TransactionService {
     reviewTransactions() {
         let url = "/tool/api/getTransactions"
 
-        return firebase.auth().currentUser.getIdToken(true).then(idToken => 
+        return firebase.auth().currentUser.getIdToken(false).then(idToken => 
          axios.get(url, {headers: {'X-Authorization-Firebase': idToken}}))
     }
 
     getUserRoles() {
         let url = "/tool/api/getRoles"
 
-        return firebase.auth().currentUser.getIdToken(true).then(idToken => 
+        return firebase.auth().currentUser.getIdToken(false).then(idToken => 
          axios.get(url, {headers: {'X-Authorization-Firebase': idToken}}))
+    }
+
+    getAllUsers() {
+        let url = "/tool/api/admin/getAllUsers"
+
+        return firebase.auth().currentUser.getIdToken(false).then(idToken => 
+         axios.get(url, {headers: {'X-Authorization-Firebase': idToken}})) 
     }
 
 }

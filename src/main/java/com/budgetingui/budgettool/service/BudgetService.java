@@ -2,7 +2,9 @@ package com.budgetingui.budgettool.service;
 
 
 import com.budgetingui.budgettool.model.Purchase;
+import com.budgetingui.budgettool.model.User;
 import com.budgetingui.budgettool.repository.PurchaseRepository;
+import com.budgetingui.budgettool.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,9 @@ public class BudgetService {
 
     @Resource
     private PurchaseRepository purchaseRepository;
+
+    @Resource
+    private UserRepository userRepository;
 
     public ResponseEntity<?> saveNewTransaction(Purchase purchase) {
         Purchase result = purchaseRepository.save(purchase);
@@ -49,5 +54,11 @@ public class BudgetService {
 
         Collection<SimpleGrantedAuthority> roles = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
         return (List)roles;
+    }
+
+    public List<User> getAllUsers() {
+        List <User> users = userRepository.findAll();
+        logger.info("Found list of all users of size: {}", users.size());
+        return users;
     }
 }
