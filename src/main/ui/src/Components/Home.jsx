@@ -198,7 +198,7 @@ class Home extends React.Component {
         else if (this.state.activePage === PageNames.AdminPage) {
             console.log("going to try and return admin page");
             return (
-                <UserAdministration />
+                <UserAdministration users={this.state.users}/>
             )
         }
     }
