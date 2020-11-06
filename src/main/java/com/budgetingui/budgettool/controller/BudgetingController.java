@@ -2,14 +2,19 @@ package com.budgetingui.budgettool.controller;
 
 
 import com.budgetingui.budgettool.model.Purchase;
+import com.budgetingui.budgettool.model.RoleRequest;
 import com.budgetingui.budgettool.service.BudgetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -41,6 +46,12 @@ public class BudgetingController {
     public ResponseEntity<?> getAllUsers() {
         logger.info("Getting a list of all users for the user admin function");
         return new ResponseEntity<>(budgetService.getAllUsers(), HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/saveNewRole")
+    public ResponseEntity<?> saveNewRole(RoleRequest role, Principal principal) {
+        logger.info("Attempting to save a new role: {}", role);
+        return budgetService.saveNewRole(role.getRequestedRole());
     }
 
 

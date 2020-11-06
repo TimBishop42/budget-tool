@@ -2,8 +2,10 @@ package com.budgetingui.budgettool.service;
 
 
 import com.budgetingui.budgettool.model.Purchase;
+import com.budgetingui.budgettool.model.Role;
 import com.budgetingui.budgettool.model.User;
 import com.budgetingui.budgettool.repository.PurchaseRepository;
+import com.budgetingui.budgettool.repository.RoleRepository;
 import com.budgetingui.budgettool.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,9 @@ public class BudgetService {
 
     @Resource
     private UserRepository userRepository;
+
+    @Resource
+    private RoleRepository roleRepository;
 
     public ResponseEntity<?> saveNewTransaction(Purchase purchase) {
         Purchase result = purchaseRepository.save(purchase);
@@ -60,5 +65,21 @@ public class BudgetService {
         List <User> users = userRepository.findAll();
         logger.info("Found list of all users of size: {}", users.size());
         return users;
+    }
+
+    public ResponseEntity<?> saveNewRole(String role) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        Role newRole = new Role();
+        newRole.setUserId(1L);
+        try {
+            roleRepository.save(newRole);
+            logger.info("Successfully saved new role for user :{}", userName);
+        }
+        catch(Exception e) {
+            logger.info("We got an exception while trying to save a new role: {}", e.getMessage());
+        }
+        return new ResponseEntity<>(roleRepository.findByUserId(1L), HttpStatus.OK);
+
     }
 }

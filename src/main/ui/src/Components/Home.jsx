@@ -15,6 +15,18 @@ const PageNames = {
 };
 
 const
+    roleTypes = [
+        {
+            value: 'Role_Admin',
+            label: 'admin',
+        },
+        {
+            value: 'Role_User',
+            label: 'user',
+        }
+    ];
+
+const
     purchaseTypes = [
         {
             value: 'Wedding',
@@ -62,7 +74,6 @@ class Home extends React.Component {
             isLoading: true,
             users: [],
             transactions: []
-
         }
     }
 
@@ -99,6 +110,24 @@ class Home extends React.Component {
         }
     }
 
+    async submitUserRole(userRole) {
+        if(userRole.requestedRole === userRole.role) {
+        TransactionService.saveUserRole(userRole)
+        .catch((error) => {
+            console.log(error);
+        })
+        .then((response) => {
+            console.log("api response: ", response)
+            this.setState({
+                isSubmitted: true
+            });
+        });
+} else {
+    console.log("User already has role");
+}
+
+    }
+
 
     handleChange = event => {
         console.log("Setting :" + event.target.name + " To: " + event.target.value);
@@ -107,6 +136,7 @@ class Home extends React.Component {
             isSubmitted: false
         });
     };
+
 
 
     submittionStatus() {
@@ -198,7 +228,9 @@ class Home extends React.Component {
         else if (this.state.activePage === PageNames.AdminPage) {
             console.log("going to try and return admin page");
             return (
-                <UserAdministration users={this.state.users}/>
+                <UserAdministration 
+                users={this.state.users}
+                submitNewRole = {this.submitUserRole.bind(this)}/>
             )
         }
     }

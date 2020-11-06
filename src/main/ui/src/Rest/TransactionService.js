@@ -22,6 +22,13 @@ export class TransactionService {
             {headers: {'Content-Type': 'application/json' , 'X-Authorization-Firebase': idToken}})
         )}
 
+        saveUserRole(userRole) {
+            let url = "/tool/api/admin/saveNewRole"
+            return firebase.auth().currentUser.getIdToken(false).then(idToken => 
+             axios.post(url, {userRole},
+                {headers: {'Content-Type': 'application/json' , 'X-Authorization-Firebase': idToken}})
+            )}
+
     reviewTransactions() {
         let url = "/tool/api/getTransactions"
 
