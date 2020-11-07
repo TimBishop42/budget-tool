@@ -103,8 +103,8 @@ function UserAdministration(props) {
                                 <StyledTableCell align="left">{user.email}</StyledTableCell>
                                 <StyledTableCell align="left">{user.authorities[0].authority}</StyledTableCell>
                                 <StyledTableCell align="left">
-                                        <Button className={classes.root} onClick={() => props.submitNewRole({adminRole, user})}>Add Admin Role</Button>
-                                        <Button className={classes.root} onClick={() => props.submitNewRole({userRole, user})}>Add User Role</Button>
+                                        <Button className={classes.root} onClick={() => props.submitNewRole('ROLE_ADMIN', user.id)}>Add Admin Role</Button>
+                                        <Button className={classes.root} onClick={() => props.submitNewRole('ROLE_USER', user.id)}>Add User Role</Button>
                                     </StyledTableCell>
                                     {/* <StyledTableCell align="left">{transaction.cost}</StyledTableCell> */}
                                 </StyledTableRow>

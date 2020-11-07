@@ -112,22 +112,20 @@ class Home extends React.Component {
 
     async submitUserRole(userRole, user) {
         console.log("User id stuff in Home file: " + user)
-        if(userRole.requestedRole === userRole.role) {
+        // if(userRole.requestedRole === userRole.role) {
         TransactionService.saveUserRole(userRole, user)
-        .catch((error) => {
-            console.log(error);
-        })
-        .then((response) => {
-            console.log("api response: ", response)
-            this.setState({
-                isSubmitted: true
+            .catch((error) => {
+                console.log(error);
+            })
+            .then((response) => {
+                console.log("api response: ", response)
+                this.setState({
+                    isSubmitted: true
+                });
             });
-        });
-} else {
-    console.log("User already has role");
-}
-
     }
+
+
 
 
     handleChange = event => {
@@ -229,9 +227,9 @@ class Home extends React.Component {
         else if (this.state.activePage === PageNames.AdminPage) {
             console.log("going to try and return admin page");
             return (
-                <UserAdministration 
-                users={this.state.users}
-                submitNewRole = {this.submitUserRole.bind(this)}/>
+                <UserAdministration
+                    users={this.state.users}
+                    submitNewRole={this.submitUserRole.bind(this)} />
             )
         }
     }
