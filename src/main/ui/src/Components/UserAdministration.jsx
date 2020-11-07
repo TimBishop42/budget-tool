@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         padding: '0 30px',
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         marginLeft: 16,
-      },
+    },
 });
 
 const
@@ -68,15 +68,15 @@ function UserAdministration(props) {
     const [roleSelection, setRoleSelection] = useState(false)
 
     const adminRole = {
-        requestedRole : 'Role_Admin',
+        requestedRole: 'Role_Admin',
         role: 'Role_Admin',
     }
     const userRole = {
-        requestedRole : 'Role_User',
+        requestedRole: 'Role_User',
         role: 'Role_Admin',
     }
 
-    
+
 
     return (
         <div className="transactins-review">
@@ -101,20 +101,25 @@ function UserAdministration(props) {
                                     </TableCell> */}
                                 <StyledTableCell align="left">{user.id}</StyledTableCell>
                                 <StyledTableCell align="left">{user.email}</StyledTableCell>
-                                <StyledTableCell align="left">{user.authorities[0].authority}</StyledTableCell>
-                                <StyledTableCell align="left">
-                                        <Button className={classes.root} onClick={() => props.submitNewRole({adminRole, user})}>Add Admin Role</Button>
-                                        <Button className={classes.root} onClick={() => props.submitNewRole({userRole, user})}>Add User Role</Button>
+                                <StyledTableCell align="left">{user.authorities.map(authority => {
+                                    // return authority.authority.replace('ROLE_', '');
+                                    // {authority.role}
+                                    // authority.replace('ROLE_', '')
+                                })}
                                     </StyledTableCell>
-                                    {/* <StyledTableCell align="left">{transaction.cost}</StyledTableCell> */}
-                                </StyledTableRow>
-                                )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </div>
+                                <StyledTableCell align="left">
+                                    <Button className={classes.root} onClick={() => props.submitNewRole({ adminRole, user })}>Add Admin Role</Button>
+                                    <Button className={classes.root} onClick={() => props.submitNewRole({ userRole, user })}>Add User Role</Button>
+                                </StyledTableCell>
+                                {/* <StyledTableCell align="left">{transaction.cost}</StyledTableCell> */}
+                            </StyledTableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>
 
-            )
+    )
 
 
 
