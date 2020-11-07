@@ -24,14 +24,12 @@ export class TransactionService {
     }
 
     saveUserRole(userRole, user) {
-        console.log("User Role: "+userRole.userRole + " Data from user row: " + user)
+        console.log("User Role: "+userRole + " Data from user row: " + user)
         let url = "/tool/api/admin/saveNewRole"
-        let roleRequest = userRole.userRole
         return firebase.auth().currentUser.getIdToken(false).then(idToken =>
             axios.post(url, {
-                requestedRole: roleRequest.requestedRole,
-                role: roleRequest.role,
-                userId: user.id
+                requestedRole: userRole,
+                userId: user
             },
                 { headers: { 'Content-Type': 'application/json', 'X-Authorization-Firebase': idToken } })
         )

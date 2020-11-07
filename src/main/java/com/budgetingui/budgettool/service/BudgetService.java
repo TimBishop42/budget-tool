@@ -67,27 +67,35 @@ public class BudgetService {
         return users;
     }
 
-    public ResponseEntity<?> saveNewRole(String role) {
+    public ResponseEntity<?> saveNewRole(Long userId, String role) {
         if (role == null) {
             return new ResponseEntity<>("Cannot Request an empty role", HttpStatus.BAD_REQUEST);
         }
 
-        //Find user ID from the firebase username - should/could deffinately get this from the client, but meh
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = auth.getName();
-        Role newRole = new Role();
-        newRole.setUserId(1L);
-        newRole.setAuthority(role);
+        //Check if user already has this role
+        if(userHasRole(userId, role)) {
+            return new ResponseEntity<>("User already has this requested role", HttpStatus.OK);
+        }
+        Role newRole = new Role(userId, role);
 
         try {
             roleRepository.save(newRole);
-            logger.info("Successfully saved new role for user :{}", userName);
+            logger.info("Successfully saved new role for userId :{}", userId);
         }
         catch(Exception e) {
             logger.info("We got an exception while trying to save a new role: {}", e.getMessage());
         }
-        return new ResponseEntity<>(roleRepository.findByUserId(1L), HttpStatus.OK);
+        return new ResponseEntity<>(roleRepository.findByUserId(userId), HttpStatus.OK);
+    }
 
+    private boolean userHasRole(Long userId, String role) {
+        Role userRole  = roleRepository.findByUserIdAndAuthority(userId, role);
+        if(userRole == null) {
+            return false;
+        }
+        else {
+            logger.warn("User {} already has role {} - will not grant", userId, role);
+            return true;
+        }
     }
 }

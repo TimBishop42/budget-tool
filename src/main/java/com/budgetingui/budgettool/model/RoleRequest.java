@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class RoleRequest {
     String requestedRole;
-    String role;
+//    String role;
     Long userId;
 }

@@ -51,7 +51,7 @@ public class BudgetingController {
     @RequestMapping(method = RequestMethod.POST, value = "/admin/saveNewRole")
     public ResponseEntity<?> saveNewRole(@RequestBody RoleRequest role, Principal principal) {
         logger.info("Attempting to save a new role: {}", role);
-        return budgetService.saveNewRole(role.getRequestedRole());
+        return budgetService.saveNewRole(role.getUserId(), role.getRequestedRole());
     }
 
 }
