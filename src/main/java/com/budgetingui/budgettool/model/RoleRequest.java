@@ -6,4 +6,5 @@ import lombok.Data;
 public class RoleRequest {
     String requestedRole;
     String role;
+    Long userId;
 }

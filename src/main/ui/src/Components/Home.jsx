@@ -110,9 +110,10 @@ class Home extends React.Component {
         }
     }
 
-    async submitUserRole(userRole) {
+    async submitUserRole(userRole, user) {
+        console.log("User id stuff in Home file: " + user)
         if(userRole.requestedRole === userRole.role) {
-        TransactionService.saveUserRole(userRole)
+        TransactionService.saveUserRole(userRole, user)
         .catch((error) => {
             console.log(error);
         })

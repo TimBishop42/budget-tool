@@ -68,10 +68,18 @@ public class BudgetService {
     }
 
     public ResponseEntity<?> saveNewRole(String role) {
+        if (role == null) {
+            return new ResponseEntity<>("Cannot Request an empty role", HttpStatus.BAD_REQUEST);
+        }
+
+        //Find user ID from the firebase username - should/could deffinately get this from the client, but meh
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = auth.getName();
         Role newRole = new Role();
         newRole.setUserId(1L);
+        newRole.setAuthority(role);
+
         try {
             roleRepository.save(newRole);
             logger.info("Successfully saved new role for user :{}", userName);
