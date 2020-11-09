@@ -101,6 +101,7 @@ class Home extends React.Component {
                 })
                 .then((response) => {
                     console.log("api response: ", response)
+                    // if(response.equals)
                     this.setState({
                         isSubmitted: true
                     });

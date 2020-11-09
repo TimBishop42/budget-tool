@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
+import { Tooltip } from "@material-ui/core";
 
 
 const useStyles = makeStyles({
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
         minWidth: 100,
     },
     root: {
-        background: 'blue',
+        background: '#3f50b5',
         borderRadius: 3,
         border: 0,
         color: 'white',
@@ -27,6 +28,7 @@ const useStyles = makeStyles({
         padding: '0 30px',
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         marginLeft: 16,
+        minWidth: '200px'
     },
 });
 
@@ -76,6 +78,12 @@ function UserAdministration(props) {
         role: 'Role_Admin',
     }
 
+    const ToolButton = ({ warningText }) => (
+        <Tooltip title={warningText == null ? "" : warningText}>
+            <Button>Do action</Button>
+        </Tooltip>
+    )
+
 
 
     return (
@@ -102,14 +110,17 @@ function UserAdministration(props) {
                                 <StyledTableCell align="left">{user.id}</StyledTableCell>
                                 <StyledTableCell align="left">{user.email}</StyledTableCell>
                                 <StyledTableCell align="left">{user.authorities.map(authority => {
-                                    // return authority.authority.replace('ROLE_', '');
+                                    return authority.authority.replace('ROLE_', ' ');
                                     // {authority.role}
                                     // authority.replace('ROLE_', '')
                                 })}
-                                    </StyledTableCell>
+                                </StyledTableCell>
                                 <StyledTableCell align="left">
-                                    <Button className={classes.root} onClick={() => props.submitNewRole({ adminRole, user })}>Add Admin Role</Button>
-                                    <Button className={classes.root} onClick={() => props.submitNewRole({ userRole, user })}>Add User Role</Button>
+                                    <Tooltip title="U" placement="right">
+                                        <Button className={classes.root} onClick={() => props.submitNewRole("ROLE_ADMIN", user.id)}>Add Admin Role</Button>
+                                    </Tooltip>
+                                    <Button className={classes.root} onClick={() => props.submitNewRole("ROLE_USER", user.id)}>Add User Role</Button>
+
                                 </StyledTableCell>
                                 {/* <StyledTableCell align="left">{transaction.cost}</StyledTableCell> */}
                             </StyledTableRow>
