@@ -28,6 +28,9 @@ public class Role implements GrantedAuthority {
     @JoinColumn(name="ID_")
     private Long userId;
 
+//    @ManyToOne
+//    private User user
+
     public Role() {
     }
 
