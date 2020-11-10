@@ -85,7 +85,8 @@ public class BudgetService {
         catch(Exception e) {
             logger.info("We got an exception while trying to save a new role: {}", e.getMessage());
         }
-        return new ResponseEntity<>(roleRepository.findByUserId(userId), HttpStatus.OK);
+        logger.info("Now that we have performed a user update, return all users");
+        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
     private boolean userHasRole(Long userId, String role) {

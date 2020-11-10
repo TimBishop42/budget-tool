@@ -112,17 +112,17 @@ class Home extends React.Component {
     }
 
     async submitUserRole(userRole, user) {
-        console.log("User id stuff in Home file: " + user)
-        // if(userRole.requestedRole === userRole.role) {
         TransactionService.saveUserRole(userRole, user)
             .catch((error) => {
                 console.log(error);
             })
             .then((response) => {
-                console.log("api response: ", response)
-                this.setState({
-                    isSubmitted: true
-                });
+                console.log("About to try and update user store: ", response.data)
+                if (response.data.id) {
+                    this.setState({
+                        users: response.data
+                    });
+                }
             });
     }
 
@@ -148,7 +148,6 @@ class Home extends React.Component {
     }
 
     showAdminFunction() {
-        console.log(this.props.user)
         if (this.props.user.roles === 'ROLE_ADMIN') {
             return (
                 <Button variant="contained"

@@ -13,6 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import { Tooltip } from "@material-ui/core";
+import { auth } from 'firebase';
 
 
 const useStyles = makeStyles({
@@ -78,11 +79,21 @@ function UserAdministration(props) {
         role: 'Role_Admin',
     }
 
-    const ToolButton = ({ warningText }) => (
-        <Tooltip title={warningText == null ? "" : warningText}>
-            <Button>Do action</Button>
+    function ToolButton(user, roleType, buttonText){
+        let warningText = "";
+        user.authorities.map(authorityObject => {
+            console.log(authorityObject)
+            console.log(roleType)
+            if(authorityObject.authority === roleType) {
+                warningText = "User already has this role";
+            }
+        })
+        return (
+        <Tooltip title={warningText}>
+            <Button className={classes.root} onClick={() => props.submitNewRole(roleType, user.id)}>{buttonText}</Button>
         </Tooltip>
-    )
+        )
+        }
 
 
 
@@ -116,11 +127,8 @@ function UserAdministration(props) {
                                 })}
                                 </StyledTableCell>
                                 <StyledTableCell align="left">
-                                    <Tooltip title="U" placement="right">
-                                        <Button className={classes.root} onClick={() => props.submitNewRole("ROLE_ADMIN", user.id)}>Add Admin Role</Button>
-                                    </Tooltip>
-                                    <Button className={classes.root} onClick={() => props.submitNewRole("ROLE_USER", user.id)}>Add User Role</Button>
-
+                                {ToolButton(user, "ROLE_ADMIN", "Add Admin Role")}
+                                {ToolButton(user, "ROLE_USER", "Add User Role")}
                                 </StyledTableCell>
                                 {/* <StyledTableCell align="left">{transaction.cost}</StyledTableCell> */}
                             </StyledTableRow>
