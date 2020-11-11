@@ -74,7 +74,7 @@ public class BudgetService {
 
         //Check if user already has this role
         if(userHasRole(userId, role)) {
-            return new ResponseEntity<>("User already has this requested role", HttpStatus.OK);
+            return new ResponseEntity<>("User already has this requested role", HttpStatus.NO_CONTENT);
         }
         Role newRole = new Role(userId, role);
 

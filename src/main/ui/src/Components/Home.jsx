@@ -117,8 +117,7 @@ class Home extends React.Component {
                 console.log(error);
             })
             .then((response) => {
-                console.log("About to try and update user store: ", response.data)
-                if (response.data.id) {
+                if (response.status === 200) {
                     this.setState({
                         users: response.data
                     });
@@ -130,7 +129,6 @@ class Home extends React.Component {
 
 
     handleChange = event => {
-        console.log("Setting :" + event.target.name + " To: " + event.target.value);
         this.setState({
             [event.target.name]: event.target.value,
             isSubmitted: false
