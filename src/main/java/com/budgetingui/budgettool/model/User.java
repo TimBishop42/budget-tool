@@ -39,6 +39,14 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
+    //Because I added another constructor below - apparently I need to explicitly define the default
+    public User () {}
+
+    public User (String username, String email) {
+        this.username = username;
+        this.email = email;
+        this.password = "fakePassword";
+    }
 
     public String getPassword() {
         return password;
