@@ -2,10 +2,10 @@
 # Enabling H2 Console
 spring:
   datasource:
-    url: jdbc:mysql://database-1.ces2s868gz3k.ap-southeast-2.rds.amazonaws.com:3306/MainDB
+    url: ## to be overiden
     #    driverClassName: com.mysql.jdbc.Driver
-    username: admin
-    password: 'wbO3K6CBPpLrp!RCBQA3k%#mosV#6'
+    username: ## to be overiden
+    password: ##to be overiden
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
