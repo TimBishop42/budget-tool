@@ -1,6 +1,7 @@
 package com.budgetingui.budgettool.service;
 
 
+import com.budgetingui.budgettool.firebase.auth.FirebaseAuthenticationToken;
 import com.budgetingui.budgettool.model.Purchase;
 import com.budgetingui.budgettool.model.Role;
 import com.budgetingui.budgettool.model.User;
@@ -11,13 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collection;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -54,11 +53,10 @@ public class BudgetService {
         return purchases;
     }
 
-    public List<SimpleGrantedAuthority> getUserRoles() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        Collection<SimpleGrantedAuthority> roles = (Collection<SimpleGrantedAuthority>) auth.getAuthorities();
-        return (List)roles;
+    public List<SimpleGrantedAuthority> getUserRoles(Principal principal) {
+        logger.info("Using principal resolved form authenticated endpoint: {}", principal);
+        FirebaseAuthenticationToken auth = (FirebaseAuthenticationToken)principal;
+        return (List)auth.getAuthorities();
     }
 
     public List<User> getAllUsers() {
@@ -98,5 +96,18 @@ public class BudgetService {
             logger.warn("User {} already has role {} - will not grant", userId, role);
             return true;
         }
+    }
+
+    public ResponseEntity<?> saveNewUser(Principal principal) {
+        FirebaseAuthenticationToken auth = (FirebaseAuthenticationToken)principal;
+        User user = new User(auth.getName(), "fake@email");
+        try {
+           user = userRepository.save(user);
+        }
+        catch(Exception e) {
+            logger.error("Unable to save new user");
+            return new ResponseEntity<>("Unable to save user, error :"+e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

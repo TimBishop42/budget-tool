@@ -4,6 +4,7 @@ package com.budgetingui.budgettool.controller;
 import com.budgetingui.budgettool.model.Purchase;
 import com.budgetingui.budgettool.model.RoleRequest;
 import com.budgetingui.budgettool.service.BudgetService;
+import com.budgetingui.budgettool.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,8 @@ public class BudgetingController {
     @Resource
     private BudgetService budgetService;
 
+    @Resource
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/saveTransaction")
     public ResponseEntity<?> saveTransactions (@RequestBody Purchase purchase) {
@@ -37,9 +40,9 @@ public class BudgetingController {
         return new ResponseEntity<List<Purchase>>(budgetService.getAllTransactions(), HttpStatus.OK);
     }
     @RequestMapping(method = RequestMethod.GET, value = "/getRoles")
-    public ResponseEntity<?> getRoles () {
+    public ResponseEntity<?> getRoles (Principal principal) {
         logger.info("Getting user roles for user");
-        return new ResponseEntity<>(budgetService.getUserRoles(), HttpStatus.OK);
+        return new ResponseEntity<>(budgetService.getUserRoles(principal), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/admin/getAllUsers")
@@ -49,9 +52,15 @@ public class BudgetingController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/saveNewRole")
-    public ResponseEntity<?> saveNewRole(@RequestBody RoleRequest role, Principal principal) {
+    public ResponseEntity<?> saveNewRole(@RequestBody RoleRequest role) {
         logger.info("Attempting to save a new role: {}", role);
         return budgetService.saveNewRole(role.getUserId(), role.getRequestedRole());
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/public/saveNewUser")
+    public ResponseEntity<?> saveNewUser(Principal principal) {
+        return budgetService.saveNewUser(principal);
+    }
+
 
 }
