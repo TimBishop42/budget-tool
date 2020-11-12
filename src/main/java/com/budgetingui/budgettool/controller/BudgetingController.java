@@ -57,13 +57,13 @@ public class BudgetingController {
         return budgetService.saveNewRole(role.getUserId(), role.getRequestedRole());
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/public/saveNewUser")
-    public ResponseEntity<?> saveNewUser(Principal principal) {
-        if(principal == null) {
-            return new ResponseEntity<>("You have passed in a null principal - not a valid request", HttpStatus.BAD_REQUEST);
-        }
-        return budgetService.saveNewUser(principal);
-    }
+//    @RequestMapping(method = RequestMethod.POST, value = "/public/saveNewUser")
+//    public ResponseEntity<?> saveNewUser(Principal principal) {
+//        if(principal == null) {
+//            return new ResponseEntity<>("You have passed in a null principal - not a valid request", HttpStatus.BAD_REQUEST);
+//        }
+//        return budgetService.saveNewUser(principal);
+//    }
 
 
 }
