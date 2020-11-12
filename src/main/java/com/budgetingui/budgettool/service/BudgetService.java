@@ -97,17 +97,4 @@ public class BudgetService {
             return true;
         }
     }
-
-    public ResponseEntity<?> saveNewUser(Principal principal) {
-        FirebaseAuthenticationToken auth = (FirebaseAuthenticationToken)principal;
-        User user = new User(auth.getName(), "fake@email");
-        try {
-           user = userRepository.save(user);
-        }
-        catch(Exception e) {
-            logger.error("Unable to save new user");
-            return new ResponseEntity<>("Unable to save user, error :"+e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
 }
