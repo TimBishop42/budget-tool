@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = userDao.findByUsername(username);
         if (userDetails == null) {
             return null;
-            //            saveNewUser()
-
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
