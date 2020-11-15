@@ -15,18 +15,6 @@ const PageNames = {
 };
 
 const
-    roleTypes = [
-        {
-            value: 'Role_Admin',
-            label: 'admin',
-        },
-        {
-            value: 'Role_User',
-            label: 'user',
-        }
-    ];
-
-const
     purchaseTypes = [
         {
             value: 'Wedding',
@@ -76,6 +64,7 @@ class Home extends React.Component {
             transactions: []
         }
     }
+
 
     async componentDidMount() {
         TransactionService.reviewTransactions()
