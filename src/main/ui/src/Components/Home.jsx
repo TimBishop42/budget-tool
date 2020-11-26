@@ -47,6 +47,8 @@ const theme = createMuiTheme({
     },
 });
 
+const buttonWidth = '150px';
+
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -139,7 +141,7 @@ class Home extends React.Component {
             return (
                 <Button variant="contained"
                     color={this.state.activePage === PageNames.AdminPage ? "secondary" : "primary"}
-                    style={{ marginLeft: 16 }} onClick={() => this.changeView(PageNames.AdminPage)}>
+                    style={{ marginLeft: 16, minWidth: buttonWidth}} onClick={() => this.changeView(PageNames.AdminPage)}>
                     User Admin
         </Button>
             )
@@ -233,13 +235,13 @@ class Home extends React.Component {
 
                         <Button variant="contained"
                             color={this.state.activePage === PageNames.SubmitPage ? "secondary" : "primary"}
-                            style={{ marginRight: 8 }} onClick={() => this.changeView(PageNames.SubmitPage)}>
+                            style={{ marginRight: 8, minWidth: buttonWidth }} onClick={() => this.changeView(PageNames.SubmitPage)}>
                             Submit
                         </Button>
 
                         <Button variant="contained"
                             color={this.state.activePage === PageNames.ReviewPage ? "secondary" : "primary"}
-                            style={{ marginLeft: 8 }} onClick={() => this.changeView(PageNames.ReviewPage)}>
+                            style={{ marginLeft: 8, minWidth: buttonWidth }} onClick={() => this.changeView(PageNames.ReviewPage)}>
                             Review
                         </Button>
                         {this.showAdminFunction()}
