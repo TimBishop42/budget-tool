@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://database-1.ces2s868gz3k.ap-southeast-2.rds.amazonaws.com:3306/MainDB
     #    driverClassName: com.mysql.jdbc.Driver
     username: admin
-    password: 'ayHhQtKGly1x7EaU%5Ks9tG5#'
+    password: ####
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
