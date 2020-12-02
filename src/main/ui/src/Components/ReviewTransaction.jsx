@@ -50,6 +50,7 @@ function ReviewTransaction (props) {
                                 <StyledTableCell align="left">Description</StyledTableCell>
                                 <StyledTableCell align="left">Name</StyledTableCell>
                                 <StyledTableCell align="left">Cost</StyledTableCell>
+                                <StyledTableCell align="left">Purchase Date</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
                         <TableBody>
@@ -63,6 +64,8 @@ function ReviewTransaction (props) {
                                     <StyledTableCell align="left">{transaction.description}</StyledTableCell>
                                     <StyledTableCell align="left">{transaction.name}</StyledTableCell>
                                     <StyledTableCell align="left">{transaction.cost}</StyledTableCell>
+                                    <StyledTableCell align="left">{transaction.purchaseDate}</StyledTableCell>
+
                                 </StyledTableRow>
                             )}
                         </TableBody>

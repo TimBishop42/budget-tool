@@ -32,11 +32,13 @@ const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const [loginError, setLoginError] = useState(null);
     const signInWithEmailAndPasswordHandler = (event,email, password) => {
         event.preventDefault();
         auth.signInWithEmailAndPassword(email, password).catch(error => {
         setError("Error signing in with password and email!");
           console.error("Error signing in with password and email", error);
+          setLoginError(error.message);
         });
       };
 
@@ -44,12 +46,16 @@ const SignIn = () => {
           const {name, value} = event.currentTarget;
 
           if(name === 'userEmail') {
-              setEmail(value);
+              setEmail(value.trim());
           }
           else if(name === 'userPassword'){
             setPassword(value);
           }
       };
+
+      function getError() {
+          return loginError;
+      }
 
 
 
@@ -87,10 +93,11 @@ const SignIn = () => {
                             autoComplete="current-password"
                             onChange = {(event) => onChangeHandler(event)}
                         />
-                        <FormControlLabel
+                        {getError()}
+                        {/* <FormControlLabel
                             control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
-                        />
+                        /> */}
                         <Button
                             type="submit"
                             fullWidth
@@ -113,7 +120,7 @@ const SignIn = () => {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link to="signUp" variant="body2">
+                                <Link to="passwordReset" variant="body2">
                                     Forgot password?
                                 </Link>
                             </Grid>

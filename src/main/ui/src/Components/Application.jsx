@@ -7,10 +7,12 @@ import DefaultScreen from './DefaultScreen';
 import SignIn from './SignIn';
 import { Router } from "@reach/router";
 import SignUp from "./SignUp";
+import PasswordReset from "./PasswordReset";
 import { UserContext } from "../Providers/UserProvider";
 import { auth } from "../firebase"
 import Button from '@material-ui/core/Button';
 import * as ComponentStyles from "../Style/ComponentStyles";
+import { Link } from "@reach/router";
 
 
 
@@ -19,7 +21,7 @@ function Application() {
 
   function renderAuthenticatedContent(user) {
     if (user.roles) {
-      return <Home user={user}/>
+      return <Home user={user} />
     }
     else {
       return <DefaultScreen />
@@ -33,6 +35,10 @@ function Application() {
         {user ?
           <div style={{ width: '100%' }}>
             <Box display="flex" flexDirection="row" justifyContent="flex-end" >
+              {/* <Botton
+              variant="contained"
+              color="primary"
+              onClick={() => {}}></Botton> */}
               <Button
                 variant="contained"
                 color="primary"
@@ -42,11 +48,8 @@ function Application() {
           </div>
           : null}
 
-        <h1>Budget App</h1>
-        <div>
-          Welcome
-                    </div>
-
+        <h1><Link to='/' style={{ textDecoration: 'none', color: 'white' }}>Budget App</Link></h1>
+        <div>Welcome</div>
       </header>
       <div className="App-main"></div>
       {user ?
@@ -55,6 +58,7 @@ function Application() {
         <Router>
           <SignIn path="/" />
           <SignUp path="signUp" />
+          <PasswordReset path="passwordReset"/>
         </Router>
       }
     </div>

@@ -36,7 +36,7 @@ const SignUp = () => {
     const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
         if (name === "userEmail") {
-            setEmail(value);
+            setEmail(value.trim());
         } else if (name === "userPassword") {
             setPassword(value);
         } else if (name === "displayName") {

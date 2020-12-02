@@ -1,6 +1,7 @@
 package com.budgetingui.budgettool.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ public class Purchase {
     private BigDecimal cost;
 
     @Temporal(TemporalType.DATE)
+    @CreationTimestamp
     private Date purchaseDate;
 
     public void setPurchaseDate(String dateString) {

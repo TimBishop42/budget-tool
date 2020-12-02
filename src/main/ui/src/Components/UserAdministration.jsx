@@ -79,6 +79,16 @@ function UserAdministration(props) {
         role: 'Role_Admin',
     }
 
+    function compare( a, b ) {
+        if ( a.authority < b.authority ){
+          return -1;
+        }
+        if ( a.authority > b.authority ){
+          return 1;
+        }
+        return 0;
+      }
+
     function ToolButton(user, roleType, buttonText){
         let warningText = "";
         user.authorities.map(authorityObject => {
@@ -120,7 +130,7 @@ function UserAdministration(props) {
                                     </TableCell> */}
                                 <StyledTableCell align="left">{user.id}</StyledTableCell>
                                 <StyledTableCell align="left">{user.email}</StyledTableCell>
-                                <StyledTableCell align="left">{user.authorities.map(authority => {
+                                <StyledTableCell align="left">{user.authorities.sort(compare).map(authority => {
                                     return authority.authority.replace('ROLE_', ' ');
                                     // {authority.role}
                                     // authority.replace('ROLE_', '')
