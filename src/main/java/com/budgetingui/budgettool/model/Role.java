@@ -11,6 +11,11 @@ public class Role implements GrantedAuthority {
 
     private static final long serialVersionUID = -8186644851823152209L;
 
+    public Role (Long userId, String authority) {
+        this.userId = userId;
+        this.authority = authority;
+    }
+
     @Id
     @Column(name = "ID_")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +27,9 @@ public class Role implements GrantedAuthority {
     @Column(name = "USERID_")
     @JoinColumn(name="ID_")
     private Long userId;
+
+//    @ManyToOne
+//    private User user
 
     public Role() {
     }

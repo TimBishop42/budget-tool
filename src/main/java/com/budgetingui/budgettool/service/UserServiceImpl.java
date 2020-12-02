@@ -1,6 +1,8 @@
 package com.budgetingui.budgettool.service;
 
 import com.budgetingui.budgettool.config.SecurityConfig;
+import com.budgetingui.budgettool.firebase.auth.FirebaseAuthenticationToken;
+import com.budgetingui.budgettool.firebase.auth.FirebaseTokenHolder;
 import com.budgetingui.budgettool.firebase.auth.RegisterUserInit;
 import com.budgetingui.budgettool.model.Role;
 import com.budgetingui.budgettool.model.User;
@@ -34,8 +36,9 @@ public class UserServiceImpl implements UserService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails userDetails = userDao.findByUsername(username);
-        if (userDetails == null)
+        if (userDetails == null) {
             return null;
+        }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
         for (GrantedAuthority role : userDetails.getAuthorities()) {
@@ -44,6 +47,19 @@ public class UserServiceImpl implements UserService {
 
         return new org.springframework.security.core.userdetails.User(userDetails.getUsername(),
                 userDetails.getPassword(), userDetails.getAuthorities());
+    }
+
+    public UserDetails saveNewUser(FirebaseAuthenticationToken authenticationToken) {
+        FirebaseTokenHolder tokenHolder = (FirebaseTokenHolder) authenticationToken.getCredentials();
+        User user = new User(authenticationToken.getName(), tokenHolder.getEmail());
+        try {
+            user = userDao.save(user);
+        }
+        catch(Exception e) {
+            logger.error("Unable to save new user");
+            return null;
+        }
+        return user;
     }
 
     @Override
@@ -78,7 +94,7 @@ public class UserServiceImpl implements UserService {
         if (userDao.count() == 0) {
             User adminEntity = new User();
             adminEntity.setUsername("8BnRCy2pkTPn0PVYwlW2rpNLi6J2");
-            adminEntity.setPassword("admin");
+            adminEntity.setPassword("fakePassword");
             adminEntity.setEmail("bishoptim453@gmail.com");
 
             adminEntity.setAuthorities(getAdminRoles());
@@ -86,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
             User user = new User();
             user.setUsername("user1");
-            user.setPassword("user1");
+            user.setPassword("fakePassword");
             user.setEmail("laurenjohnson42@gmail.com");
 //            user.setAuthorities(getUserRoles());
             user.setAuthorities(getUserRoles());

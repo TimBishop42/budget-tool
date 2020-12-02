@@ -2,27 +2,28 @@
 # Enabling H2 Console
 spring:
   datasource:
-    url: ## override
-#    driverClassName: com.mysql.jdbc.Driver
-    username: ## override
-    password: ## override
+    url: jdbc:mysql://database-1.ces2s868gz3k.ap-southeast-2.rds.amazonaws.com:3306/MainDB
+    #    driverClassName: com.mysql.jdbc.Driver
+    username: admin
+    password: ####
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    show-sql: true
+    show-sql: false
     hibernate.naming_strategy: org.hibernate.cfg.DefaultNamingStrategy
 
-  h2.console.enabled: false
+#  h2.console.enabled: false
   profiles:
-    active:
+    active: local
+      ## local
 
 rs.pscode.firebase.database.url: https://budget-tool-311f2.firebaseio.com
-rs.pscode.firebase.config.path: budget-tool-311f2-firebase-adminsdk-i7d8m-3f908daf73.json
+rs.pscode.firebase.config.path: budget-tool-311f2-firebase-adminsdk-i7d8m-5138be61f4.json
 
 #rs.pscode.firebase.enabled: true/false
+#server.port: 5000
 
-
-hibernate:
-
-  show_sql: true
-  format_sql: true
+#hibernate:
+#
+#  show_sql: true
+#  format_sql: true
 

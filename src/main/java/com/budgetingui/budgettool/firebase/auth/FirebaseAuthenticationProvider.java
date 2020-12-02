@@ -1,11 +1,12 @@
 package com.budgetingui.budgettool.firebase.auth;
 
-import com.budgetingui.budgettool.exception.FirebaseUserNotExistsException;
+import com.budgetingui.budgettool.service.UserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -13,8 +14,10 @@ import javax.annotation.Resource;
 @Component
 public class FirebaseAuthenticationProvider implements AuthenticationProvider {
 
+    private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Resource
-    UserDetailsService userDetailsService;
+    private UserServiceImpl userService;
 
 
     public boolean supports(Class<?> authentication) {
@@ -27,9 +30,10 @@ public class FirebaseAuthenticationProvider implements AuthenticationProvider {
         }
 
         FirebaseAuthenticationToken authenticationToken = (FirebaseAuthenticationToken) authentication;
-        UserDetails details = userDetailsService.loadUserByUsername(authenticationToken.getName());
+        UserDetails details = userService.loadUserByUsername(authenticationToken.getName());
         if (details == null) {
-            throw new FirebaseUserNotExistsException();
+            logger.info("This user does not exist, as they are authenticated, we will create them in our DB without any roles");
+            details = userService.saveNewUser(authenticationToken);
         }
 
         authenticationToken = new FirebaseAuthenticationToken(details, authentication.getCredentials(),

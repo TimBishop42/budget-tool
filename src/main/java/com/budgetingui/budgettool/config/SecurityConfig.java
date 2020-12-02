@@ -3,6 +3,8 @@ package com.budgetingui.budgettool.config;
 import com.budgetingui.budgettool.firebase.auth.FirebaseAuthenticationProvider;
 import com.budgetingui.budgettool.firebase.filter.FirebaseFilter;
 import com.budgetingui.budgettool.service.FirebaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
@@ -61,11 +63,13 @@ public class SecurityConfig {
 
     @Configuration
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
-    @Profile("!local")
+    @Profile("!local-api")
     protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 //        @Value("${rs.pscode.firebase.enabled}")
         private Boolean firebaseEnabled = true;
+
+        private static final Logger logger = LoggerFactory.getLogger(ApplicationSecurity.class);
 
         @Override
         public void configure(WebSecurity web) {
@@ -80,13 +84,15 @@ public class SecurityConfig {
                         .antMatchers("/").permitAll() //For returning static content - maybe unsafe?
                         .antMatchers("/tool/api/getTransactions").hasAnyRole(Roles.ADMIN, Roles.USER)
                         .antMatchers("/tool/api/getRoles").permitAll()
-                        .antMatchers("/tool/api/saveTransaction").hasAnyRole(Roles.ADMIN, Roles.USER)  //Remove later - for H2
-                        .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
+                        .antMatchers("/tool/api/saveTransaction").hasAnyRole(Roles.ADMIN, Roles.USER)
+                        .antMatchers("/tool/admin/**").hasAnyRole(Roles.ADMIN)//
                         .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
+                        .antMatchers("/h2-console").permitAll()
 //                        .antMatchers("/**").denyAll()//
-                        .and().csrf().disable()//
-                        .anonymous().authorities(Roles.ROLE_ANONYMOUS);//
-                http.headers().frameOptions().disable(); //for h2-db
+                        .and().csrf().disable()// h2
+                        .anonymous().authorities(Roles.ROLE_ANONYMOUS);
+                http.csrf().disable();
+                http.headers().frameOptions().sameOrigin(); //for h2-db
             } else {
                 http.httpBasic().and().authorizeRequests()//
 
