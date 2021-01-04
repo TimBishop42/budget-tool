@@ -86,6 +86,7 @@ public class SecurityConfig {
                         .antMatchers("/tool/api/getRoles").permitAll()
                         .antMatchers("/tool/api/saveTransaction").hasAnyRole(Roles.ADMIN, Roles.USER)
                         .antMatchers("/tool/admin/**").hasAnyRole(Roles.ADMIN)//
+                        .antMatchers("/tool/api/fitness/**").hasAnyRole(Roles.ADMIN, Roles.USER)
                         .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
                         .antMatchers("/h2-console").permitAll()
 //                        .antMatchers("/**").denyAll()//

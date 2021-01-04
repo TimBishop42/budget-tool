@@ -7,11 +7,14 @@ import ReviewTransaction from "./ReviewTransaction";
 import UserAdministration from './UserAdministration'
 import Button from "@material-ui/core/Button";
 import { auth } from "../firebase"
+import SubmitActivty from './SubmitActivity';
 
 const PageNames = {
     SubmitPage: 'submitPage',
     ReviewPage: 'reviewPage',
-    AdminPage: 'adminPage'
+    AdminPage: 'adminPage',
+    FitnessPage: 'fitnessPage'
+
 };
 
 const
@@ -204,7 +207,6 @@ class Home extends React.Component {
 
         else if (this.state.activePage === PageNames.ReviewPage) {
 
-            console.log("going to try and return review page");
             return (
                 <div className={"landing-page-component-container"}>
                     <ReviewTransaction
@@ -219,6 +221,21 @@ class Home extends React.Component {
                 <UserAdministration
                     users={this.state.users}
                     submitNewRole={this.submitUserRole.bind(this)} />
+            )
+        }
+        else if (this.state.activePage === PageNames.FitnessPage) {
+            return (
+                <div className={"landing-page-component-container"}>
+                    <SubmitActivty
+                        purchaseType={this.state.purchaseType}
+                        username={this.state.userName}
+                        amount={this.state.amount}
+                        description={this.state.description}
+                        isSubmitted={this.state.isSubmitted}
+                        handleChange={this.handleChange.bind(this)}
+                        submitPurchase={this.submitPurchase.bind(this)}
+                        submittionStatus={this.submittionStatus.bind(this)} />
+                </div>
             )
         }
     }
@@ -243,6 +260,11 @@ class Home extends React.Component {
                             color={this.state.activePage === PageNames.ReviewPage ? "secondary" : "primary"}
                             style={{ marginLeft: 8, minWidth: buttonWidth }} onClick={() => this.changeView(PageNames.ReviewPage)}>
                             Review
+                        </Button>
+                        <Button variant="contained"
+                            color={this.state.activePage === PageNames.FitnessPage ? "secondary" : "primary"}
+                            style={{ marginLeft: 8, minWidth: buttonWidth }} onClick={() => this.changeView(PageNames.FitnessPage)}>
+                            Fitness
                         </Button>
                         {this.showAdminFunction()}
                     </div>

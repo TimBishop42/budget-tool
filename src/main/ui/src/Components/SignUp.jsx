@@ -25,6 +25,7 @@ const SignUp = () => {
         event.preventDefault();
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
+            
             generateUserDocument(user, { displayName });
         }
         catch (error) {
@@ -36,7 +37,7 @@ const SignUp = () => {
     const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
         if (name === "userEmail") {
-            setEmail(value.trim());
+            setEmail(value);
         } else if (name === "userPassword") {
             setPassword(value);
         } else if (name === "displayName") {

@@ -23,8 +23,20 @@ export class TransactionService {
         )
     }
 
+    submitActivity(activityList, activityDate) {
+        let url = "/tool/api/fitness/saveActivities"
+        console.log("Activity list for submittion: " + activityList);
+        return firebase.auth().currentUser.getIdToken(false).then(idToken =>
+            axios.post(url, {
+                    activityNames: activityList,
+                    activityDate: activityDate
+            },
+                { headers: { 'Content-Type': 'application/json', 'X-Authorization-Firebase': idToken } })
+        )
+    }
+
     saveUserRole(userRole, user) {
-        console.log("User Role: "+userRole + " Data from user row: " + user)
+        console.log("User Role: " + userRole + " Data from user row: " + user)
         let url = "/tool/api/admin/saveNewRole"
         return firebase.auth().currentUser.getIdToken(false).then(idToken =>
             axios.post(url, {
