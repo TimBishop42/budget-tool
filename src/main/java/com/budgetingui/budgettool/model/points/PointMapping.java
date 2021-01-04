@@ -31,10 +31,10 @@ public class PointMapping {
         pointsMap.put("RUN", RUN);
         pointsMap.put("PUSHUPS", PUSHUPS);
         pointsMap.put("GYM", GYM);
-        pointsMap.put("TEN_K_STEPS", TEN_K_STEPS);
-        pointsMap.put("NO_DRINKING", NO_DRINKING);
+        pointsMap.put("STEPS", TEN_K_STEPS);
+        pointsMap.put("NODRINKING", NO_DRINKING);
         pointsMap.put("NO_DRINKING_WEEKEND", NO_DRINKING_WEEKEND);
-        pointsMap.put("DRINKING_SUNDAY", DRINKING_SUNDAY);
+        pointsMap.put("SUNDAYDRINKING", DRINKING_SUNDAY);
     }
 
     public double getPointValue(String activityName, Date activityDate) {

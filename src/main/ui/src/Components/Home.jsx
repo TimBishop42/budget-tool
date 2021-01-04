@@ -66,7 +66,8 @@ class Home extends React.Component {
             activePage: 'submitPage',
             isLoading: true,
             users: [],
-            transactions: []
+            transactions: [],
+            submittionError: ''
         }
     }
 
@@ -92,6 +93,7 @@ class Home extends React.Component {
             TransactionService.submitPurchase(this.state.description, this.state.amount, this.state.purchaseType, this.state.userName)
                 .catch((error) => {
                     console.log(error);
+                    this.setState({submittionError: error})
                 })
                 .then((response) => {
                     console.log("api response: ", response)
@@ -200,7 +202,8 @@ class Home extends React.Component {
                         isSubmitted={this.state.isSubmitted}
                         handleChange={this.handleChange.bind(this)}
                         submitPurchase={this.submitPurchase.bind(this)}
-                        submittionStatus={this.submittionStatus.bind(this)} />
+                        submittionStatus={this.submittionStatus.bind(this)} 
+                        submittionError={this.state.error}/>
                 </div>
             )
         }

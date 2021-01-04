@@ -118,7 +118,10 @@ function SubmitTransaction(props) {
                     {props.submittionStatus()}
                 </Button>
             </Grid>
-            <SubmissionStatus submissionState={props.isSubmitted} />
+            <SubmissionStatus 
+            submissionState={props.isSubmitted}
+            submissionError={props.submittionError}
+             />
         </Grid>
     )
 }

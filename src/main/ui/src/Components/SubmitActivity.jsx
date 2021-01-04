@@ -42,6 +42,7 @@ export default function SubmitActivty() {
         sundaydrinking: false,
         isSubmitted: false,
         activityDate: new Date(),
+        submittionError: '',
     });
 
     const handleChange = (event) => {
@@ -71,7 +72,7 @@ export default function SubmitActivty() {
             activityList.push("NODRINKING")
         }
         if (state.sundaydrinking) {
-            activityList.push("SUNDAYDRINKIN")
+            activityList.push("SUNDAYDRINKING")
         }
         activityList.map((activity) => {
             console.log(activity)
@@ -80,13 +81,12 @@ export default function SubmitActivty() {
     }
 
     const submitSelections = async () => {
-        console.log("First Line submit: ");
         if (!state.isSubmitted) {
-            console.log("Stepped into the submit activity method");
             const activityList = prepSelection()
             TransactionService.submitActivity(activityList, state.activityDate)
                 .catch((error) => {
                     console.log(error);
+                    setState({...state, submittionError: error})
                 })
                 .then((response) => {
                     console.log("api response: ", response)
@@ -94,7 +94,7 @@ export default function SubmitActivty() {
                     setState({ ...state, isSubmitted: true });
                 });
         } else {
-            console.log(state.isSubmitted);
+            console.log("Already Submitted");
         }
     }
 
@@ -194,7 +194,9 @@ export default function SubmitActivty() {
                     {submittionStatus()}
                 </Button>
             </Grid>
-            {/* <SubmissionStatus submissionState={props.isSubmitted} /> */}
+            <SubmissionStatus 
+            submissionState={state.isSubmitted} 
+            submisisonError={state.submisisonError}/>
         </Grid>
     )
 }

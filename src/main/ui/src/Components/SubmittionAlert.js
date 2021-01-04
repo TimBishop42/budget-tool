@@ -6,7 +6,7 @@ function SubmitionStatus (props) {
         return <p>Submission Successful</p>
     }
     else {
-        return null;
+        return <p>{props.submissionError}</p>;
     }
 
 }
