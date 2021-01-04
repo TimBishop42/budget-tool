@@ -41,14 +41,10 @@ public class PointMapping {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(activityDate);
 //        calendar.get
-        if(activityName.equals("NO_DRINKING")) {
+        if(activityName.equals("NODRINKING")) {
             //Not drinking on a Friday and Saturday is double points
             if(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
                 return pointsMap.get("NO_DRINKING_WEEKEND");
-            }
-            //Drinking on a Sunday is -1 point
-            else if(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                return pointsMap.get("DRINKING_SUNDAY");
             }
             else {
                 return pointsMap.get(activityName);

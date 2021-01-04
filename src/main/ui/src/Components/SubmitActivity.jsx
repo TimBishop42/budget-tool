@@ -50,7 +50,7 @@ export default function SubmitActivty() {
     };
 
     const handleDateChange = (date) => {
-        setState({...state, activityDate: date})
+        setState({...state, activityDate: date, isSubmitted: false})
     }
 
     const prepSelection = () => {
