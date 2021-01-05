@@ -16,8 +16,9 @@ public class ActivityDao {
     private static final Logger logger = LoggerFactory.getLogger(BudgetService.class);
 
     private static final String SQL_ACTIVITY_SUMMARY =
-            "select u.EMAIL_, sum(a.points) as points from activity a, user u\n" +
-            " where a.activity_user = u.USERNAME_";
+            "select u.EMAIL_, sum(a.points) as points from activity a, user u" +
+            " where a.activity_user = u.USERNAME_" +
+                    " group by u.EMAIL_";
 
     private static final String POINTS_COLUMN = "points";
     private static final String USERNAME_COLUMN = "EMAIL_";

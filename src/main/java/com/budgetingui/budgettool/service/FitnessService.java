@@ -5,6 +5,7 @@ import com.budgetingui.budgettool.firebase.auth.FirebaseAuthenticationToken;
 import com.budgetingui.budgettool.model.Activity;
 import com.budgetingui.budgettool.model.points.PointMapping;
 import com.budgetingui.budgettool.model.request.ActivityRequest;
+import com.budgetingui.budgettool.model.response.ActivitySummary;
 import com.budgetingui.budgettool.repository.FitnessActivityRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +71,11 @@ public class FitnessService {
 
     public ResponseEntity<?> getAcivitySummary() {
         try {
+            logger.info("Trying to request activities");
+            List<ActivitySummary> activitySummaries = activityDao.findActivitySummarries();
+            for(ActivitySummary activitySummary : activitySummaries) {
+                logger.info("Found activity summary to return to UI: {}", activitySummary);
+            }
             return new ResponseEntity<>(activityDao.findActivitySummarries(), HttpStatus.OK) ;
         }
         catch(DataAccessException e) {

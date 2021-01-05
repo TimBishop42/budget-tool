@@ -15,24 +15,29 @@ import Checkbox from '@material-ui/core/Checkbox';
 import DatePicker from "react-datepicker";
 import TransactionService from "../Rest/TransactionService";
 import trophy from '../Image/trophy.png';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+
 
 import "react-datepicker/dist/react-datepicker.css";
 
 
-const styles = theme => ({
+
+const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
+        flexGrow: 1,
     },
-    formControl: {
-        margin: theme.spacing.unit * 3,
+    paper: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
     },
-    group: {
-        margin: `${theme.spacing.unit}px 0`,
-    },
-});
+}));
 
 export default function SubmitActivty() {
     const [startDate, setStartDate] = useState(new Date());
+
+    const classes = useStyles();
 
     const [state, setState] = useState({
         run: false,
@@ -237,19 +242,27 @@ export default function SubmitActivty() {
                     submisisonError={state.submisisonError} />
             </Grid>
             <h1>Tim and Loz Get Shredded Scores!!!</h1>
-            <Grid container style={{ marginTop: 8 }} direction="row" spacing={20}></Grid>
+
             {state.activtySummary.map(summary =>
-                <Grid container style={{ marginTop: 8 }} direction="column" spacing={2}>
-                    <Grid item>
-                        {summary.username}
+                <Grid container style={{ marginTop: 8 }} direction="column" spacing={20}>
+                    {/* <Grid container style={{ marginTop: 8 }} direction="column" spacing={2}> */}
+                        <Grid container item xs={12} spacing={3}>
+                            <Grid item>
+                                <Paper className={classes.paper}>{summary.username}</Paper>
+                            </Grid>
+                        </Grid>
+                        <Grid container item xs={12} spacing={3}>
+                            <Grid item>
+                                <Paper className={classes.paper}>{summary.points}</Paper>
+                            </Grid>
+                        </Grid>
+                        <Grid container item spacing={3}>
+                            <Grid item>
+                                {calculateCurrentWinner(summary.username)}
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        {summary.points}
-                    </Grid>
-                    <Grid item>
-                        {calculateCurrentWinner(summary.username)}
-                    </Grid>
-                </Grid>
+                // </Grid>
             )}
         </div>
 
