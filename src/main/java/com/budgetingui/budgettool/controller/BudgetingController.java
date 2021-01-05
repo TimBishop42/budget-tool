@@ -2,7 +2,7 @@ package com.budgetingui.budgettool.controller;
 
 
 import com.budgetingui.budgettool.model.Purchase;
-import com.budgetingui.budgettool.model.RoleRequest;
+import com.budgetingui.budgettool.model.request.RoleRequest;
 import com.budgetingui.budgettool.service.BudgetService;
 import com.budgetingui.budgettool.service.UserService;
 import org.slf4j.Logger;

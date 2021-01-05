@@ -1,12 +1,14 @@
 package com.budgetingui.budgettool.service;
 
+import com.budgetingui.budgettool.dao.ActivityDao;
 import com.budgetingui.budgettool.firebase.auth.FirebaseAuthenticationToken;
 import com.budgetingui.budgettool.model.Activity;
-import com.budgetingui.budgettool.model.ActivityRequest;
 import com.budgetingui.budgettool.model.points.PointMapping;
+import com.budgetingui.budgettool.model.request.ActivityRequest;
 import com.budgetingui.budgettool.repository.FitnessActivityRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class FitnessService {
 
     @Resource
     private FitnessActivityRepository fitnessActivityRepository;
+
+    @Resource
+    private ActivityDao activityDao;
 
     public PointMapping pointMapping = new PointMapping();
 
@@ -61,5 +66,15 @@ public class FitnessService {
                     .setPoints(pointMapping.getPointValue(activityName, activityRequest.getActivityDate())));
         }
         return activities;
+    }
+
+    public ResponseEntity<?> getAcivitySummary() {
+        try {
+            return new ResponseEntity<>(activityDao.findActivitySummarries(), HttpStatus.OK) ;
+        }
+        catch(DataAccessException e) {
+            logger.error("Unable to retrieve activity summary. Cause: {}", e.getCause());
+            return new ResponseEntity<>("Unable to retrieve activity summary", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

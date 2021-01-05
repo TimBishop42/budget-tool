@@ -1,4 +1,3 @@
-
 CREATE TABLE purchase (
 id INT AUTO_INCREMENT  PRIMARY KEY,
 name VARCHAR(50) NOT NULL,
@@ -19,6 +18,14 @@ CREATE TABLE role(
     AUTHORITY_ VARCHAR(255),
     USERID_ INT,
     constraint fk_authorities_user foreign key(USERID_) references user(ID_)
+);
+
+CREATE TABLE activity (
+id INT AUTO_INCREMENT  PRIMARY KEY,
+activity_name VARCHAR(50) NOT NULL,
+points FLOAT NOT NULL,
+activity_user VARCHAR(250) NOT NULL,
+activity_date datetime not null
 );
 
 INSERT INTO purchase (id, name, description, category, cost, purchase_date) VALUES(100, 'purchase1', 'this was a cost for something', 'Alcohol',100.00, '2012-09-17');

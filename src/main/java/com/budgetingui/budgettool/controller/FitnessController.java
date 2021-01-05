@@ -1,6 +1,6 @@
 package com.budgetingui.budgettool.controller;
 
-import com.budgetingui.budgettool.model.ActivityRequest;
+import com.budgetingui.budgettool.model.request.ActivityRequest;
 import com.budgetingui.budgettool.service.FitnessService;
 import com.budgetingui.budgettool.service.UserService;
 import org.slf4j.Logger;
@@ -33,9 +33,9 @@ public class FitnessController {
         return fitnessService.saveUserActivity(activityRequest, principal);
     }
 
-    public ResponseEntity<?> retrieveActivityBasedOnUser(Principal principal) {
-        //todo impl
-        return null;
+    @RequestMapping(method = RequestMethod.GET, value = "/getSummary")
+    public ResponseEntity<?> retrieveActivitySummary() {
+        return fitnessService.getAcivitySummary();
     }
 
 

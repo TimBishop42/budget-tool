@@ -1,4 +1,4 @@
-package com.budgetingui.budgettool.model;
+package com.budgetingui.budgettool.model.request;
 
 import lombok.Data;
 

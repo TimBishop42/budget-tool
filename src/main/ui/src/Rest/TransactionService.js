@@ -35,6 +35,13 @@ export class TransactionService {
         )
     }
 
+    getActivitySummary() {
+        let url = "/tool/api/fitness/getSummary"
+        // console.log("Activity list for submittion: " + activityList);
+        return firebase.auth().currentUser.getIdToken(false).then(idToken =>
+            axios.get(url, { headers: { 'X-Authorization-Firebase': idToken } }))
+    }
+
     saveUserRole(userRole, user) {
         console.log("User Role: " + userRole + " Data from user row: " + user)
         let url = "/tool/api/admin/saveNewRole"
