@@ -243,27 +243,28 @@ export default function SubmitActivty() {
             </Grid>
             <h1>Tim and Loz Get Shredded Scores!!!</h1>
 
+            {/* <Grid container style={{ marginTop: 8 }} direction="column" spacing={1}> */}
             {state.activtySummary.map(summary =>
-                <Grid container style={{ marginTop: 8 }} direction="column" spacing={20}>
-                    {/* <Grid container style={{ marginTop: 8 }} direction="column" spacing={2}> */}
-                        <Grid container item xs={12} spacing={3}>
-                            <Grid item>
+                // <Grid container style={{ marginTop: 8 }} direction="column" spacing={1}>
+                    <Grid container style={{ marginTop: 8 }} direction="column" spacing={2} item xs={12}>
+                        <Grid container item xs={10} direction="row">
+                            <Grid item xs={3}>
                                 <Paper className={classes.paper}>{summary.username}</Paper>
                             </Grid>
-                        </Grid>
-                        <Grid container item xs={12} spacing={3}>
-                            <Grid item>
+                         {/* <Grid container item xs={12} spacing={20}> */}
+                            <Grid container item xs={3}> 
                                 <Paper className={classes.paper}>{summary.points}</Paper>
                             </Grid>
-                        </Grid>
-                        <Grid container item spacing={3}>
-                            <Grid item>
+                         {/* </Grid> */}
+                         {/* <Grid container item spacing={3}> */}
+                            <Grid container item>
                                 {calculateCurrentWinner(summary.username)}
                             </Grid>
-                        </Grid>
-                    </Grid>
+                         </Grid>
+                     </Grid>
                 // </Grid>
             )}
+            {/* </Grid>} */}
         </div>
 
 
