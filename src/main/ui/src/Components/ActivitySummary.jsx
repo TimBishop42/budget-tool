@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import trophy from '../Image/trophy.png';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import TransactionService from "../Rest/TransactionService";
 
 
-export default function SubmitActivty(props) {
+const useStyles = makeStyles((theme) =>({
+    table: {
+      minWidth: 650,
+    },
+    paper: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+  }));
+
+export default function ActivitySummary(props) {
+
+
+    const classes = useStyles();
+
 
     const calculateCurrentWinner = (username) => {
         let topScore = 0;
         let topScorer = ''
-        state.activtySummary.map(summary => {
+        props.activitySummary.map(summary => {
             if (summary.points > topScore) {
                 topScore = summary.points
                 topScorer = summary.username
@@ -18,30 +42,43 @@ export default function SubmitActivty(props) {
         }
     }
 
-    return(
-        <TableContainer component={Paper}>
+    const returnSummaryData = () => {
+        console.log(props.activitySummary && props.activitySummary.length > 0)
+        if (props.activitySummary && props.activitySummary.length > 0) {
+            return(
+            <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>User</TableCell>
-                        <TableCell align="right">Points</TableCell>
-                        <TableCell align="right"></TableCell>
+                        <TableCell align="center">Winner</TableCell>
+                        <TableCell align="center">User</TableCell>
+                        <TableCell align="center">Points</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {props.activitySummary.map((row) => (
                         <TableRow key={row.name}>
-                            <TableCell component="th" scope="row">
+                            {/* <TableCell component="th" scope="row">
                                 {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.username}</TableCell>
-                            <TableCell align="right">{row.points}</TableCell>
-                            <TableCell align="right">{calculateCurrentWinner(row.username)}</TableCell>
+                            </TableCell> */}
+                            <TableCell align="center">{calculateCurrentWinner(row.username)}</TableCell>
+                            <TableCell align="center">{row.username}</TableCell>
+                            <TableCell align="center">{row.points}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
         </TableContainer>
+            )
+        }
+        else {
+            return <Paper className={classes.paper}>Loading...</Paper>
+        }
+    }
+
+    return(
+        returnSummaryData(props)
+        
     )
 
 }

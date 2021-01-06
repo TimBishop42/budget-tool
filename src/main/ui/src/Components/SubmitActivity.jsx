@@ -14,9 +14,10 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import DatePicker from "react-datepicker";
 import TransactionService from "../Rest/TransactionService";
-import trophy from '../Image/trophy.png';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import ActivitySummary from './ActivitySummary';
 
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -120,6 +121,7 @@ export default function SubmitActivty() {
             .then((response) => {
                 console.log("api response: ", response.data)
                 setState({ ...state, activtySummary: response.data });
+                // displayData();
             });
     }
 
@@ -131,46 +133,6 @@ export default function SubmitActivty() {
             return "Submitted"
         }
     }
-
-    const displayTimData = (displayUsername) => {
-        if (state.activtySummary && state.activtySummary.length > 0) {
-            const index = state.activitySummary.findIndex(user => user.username == displayUsername)
-            if (index !== null) {
-                console.log("Found index for tim: " + index);
-                <Grid container style={{ marginTop: 8 }} spacing={2}>
-                    <Grid container item direction="column">
-                        <Grid item xs={4}>
-                            <Paper className={classes.paper}>{state.activtySummary[index].username}</Paper>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Paper className={classes.paper}>{state.activtySummary[index].points}</Paper>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            }
-        }
-    }
-
-    const displayLozData = (displayUsername) => {
-        if (state.activtySummary && state.activtySummary.length > 0) {
-        const index = state.activitySummary.findIndex(user => user.username == displayUsername)
-        if (index !== null) {
-            console.log("Found index for tim: " + index);
-            <Grid container style={{ marginTop: 8 }} spacing={2}>
-                <Grid container item direction="column">
-                    <Grid item xs={4}>
-                        <Paper className={classes.paper}>{state.activtySummary[index].username}</Paper>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Paper className={classes.paper}>{state.activtySummary[index].points}</Paper>
-                    </Grid>
-                </Grid>
-            </Grid>
-        }
-    }
-}
-
-
 
     return (
         <div>
@@ -266,9 +228,8 @@ export default function SubmitActivty() {
                     submisisonError={state.submisisonError} />
             </Grid>
             <h1>Tim and Loz Get Shredded Scores!!!</h1>
-            {displayTimData("bishoptim453@gmail.com")}
-            {displayLozData("laurenjohnson42@hotmail.com")}
-            )}
+            <ActivitySummary
+            activitySummary={state.activtySummary}/>
         </div>
 
 
