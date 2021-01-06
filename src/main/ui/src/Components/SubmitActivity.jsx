@@ -132,21 +132,45 @@ export default function SubmitActivty() {
         }
     }
 
-    const calculateCurrentWinner = (username) => {
-        let topScore = 0;
-        let topScorer = ''
-        state.activtySummary.map(summary => {
-            if (summary.points > topScore) {
-                topScore = summary.points
-                topScorer = summary.username
+    const displayTimData = (displayUsername) => {
+        if (state.activtySummary && state.activtySummary.length > 0) {
+            const index = state.activitySummary.findIndex(user => user.username == displayUsername)
+            if (index !== null) {
+                console.log("Found index for tim: " + index);
+                <Grid container style={{ marginTop: 8 }} spacing={2}>
+                    <Grid container item direction="column">
+                        <Grid item xs={4}>
+                            <Paper className={classes.paper}>{state.activtySummary[index].username}</Paper>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Paper className={classes.paper}>{state.activtySummary[index].points}</Paper>
+                        </Grid>
+                    </Grid>
+                </Grid>
             }
-        })
-        if (username === topScorer) {
-            return <img src={trophy} />
         }
-
-
     }
+
+    const displayLozData = (displayUsername) => {
+        if (state.activtySummary && state.activtySummary.length > 0) {
+        const index = state.activitySummary.findIndex(user => user.username == displayUsername)
+        if (index !== null) {
+            console.log("Found index for tim: " + index);
+            <Grid container style={{ marginTop: 8 }} spacing={2}>
+                <Grid container item direction="column">
+                    <Grid item xs={4}>
+                        <Paper className={classes.paper}>{state.activtySummary[index].username}</Paper>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Paper className={classes.paper}>{state.activtySummary[index].points}</Paper>
+                    </Grid>
+                </Grid>
+            </Grid>
+        }
+    }
+}
+
+
 
     return (
         <div>
@@ -242,29 +266,9 @@ export default function SubmitActivty() {
                     submisisonError={state.submisisonError} />
             </Grid>
             <h1>Tim and Loz Get Shredded Scores!!!</h1>
-
-            {/* <Grid container style={{ marginTop: 8 }} direction="column" spacing={1}> */}
-            {state.activtySummary.map(summary =>
-                // <Grid container style={{ marginTop: 8 }} direction="column" spacing={1}>
-                    <Grid container style={{ marginTop: 8 }} direction="column" spacing={2} item xs={12}>
-                        <Grid container item xs={10} direction="row">
-                            <Grid item xs={3}>
-                                <Paper className={classes.paper}>{summary.username}</Paper>
-                            </Grid>
-                         {/* <Grid container item xs={12} spacing={20}> */}
-                            <Grid container item xs={3}> 
-                                <Paper className={classes.paper}>{summary.points}</Paper>
-                            </Grid>
-                         {/* </Grid> */}
-                         {/* <Grid container item spacing={3}> */}
-                            <Grid container item>
-                                {calculateCurrentWinner(summary.username)}
-                            </Grid>
-                         </Grid>
-                     </Grid>
-                // </Grid>
+            {displayTimData("bishoptim453@gmail.com")}
+            {displayLozData("laurenjohnson42@hotmail.com")}
             )}
-            {/* </Grid>} */}
         </div>
 
 
