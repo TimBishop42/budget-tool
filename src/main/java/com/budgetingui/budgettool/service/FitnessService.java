@@ -17,8 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FitnessService {
@@ -96,8 +95,8 @@ public class FitnessService {
     }
 
     private List<List<AggregateActivity>> splitActivities(List<AggregateActivity> activityList) {
-        List<AggregateActivity> timList = new ArrayList<AggregateActivity>();
-        List<AggregateActivity> lozList = new ArrayList<AggregateActivity>();
+        List<AggregateActivity> timList = new ArrayList<>();
+        List<AggregateActivity> lozList = new ArrayList<>();
         List<List<AggregateActivity>> recombinedList = new ArrayList<>();
         for(AggregateActivity activity : activityList) {
             if(activity.userName.equals("Tim")) {
@@ -109,7 +108,19 @@ public class FitnessService {
         }
         recombinedList.add(timList);
         recombinedList.add(lozList);
+        recombinedList.add(sumActivitiesForUser(timList));
+        recombinedList.add(sumActivitiesForUser(lozList));
         return recombinedList;
+    }
+
+    public List<AggregateActivity> sumActivitiesForUser(List<AggregateActivity> userList) {
+        double rollingSummary = 0;
+        List<AggregateActivity> summedList = new ArrayList<>();
+        for(AggregateActivity activity: userList) {
+            rollingSummary += activity.aggregatePoints;
+            summedList.add(new AggregateActivity().setAggregatePoints(rollingSummary).setSummaryDate(activity.summaryDate).setUserName(activity.getUserName()));
+        }
+        return summedList;
     }
 
 }

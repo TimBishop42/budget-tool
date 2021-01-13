@@ -8,26 +8,11 @@ export default function LineChart(props) {
     const [state, setState] = useState({
         labels: ['1/1/2021', '2/1/2021', 'March',
             'April', 'May'],
-        datasets: [
-            {
-                label: 'Tim',
-                fill: false,
-                lineTension: 0.5,
-                backgroundColor: 'rgba(75,192,192,1)',
-                borderColor: 'rgba(0,0,0,1)',
-                borderWidth: 2,
-                data: [3, 5, 8, 11, 14]
-            },
-            {
-                label: 'Loz',
-                fill: false,
-                lineTension: 0.5,
-                backgroundColor: 'rgba(75,192,192,1)',
-                borderColor: 'rgba(0,1,1,1)',
-                borderWidth: 2,
-                data: [4, 6, 10, 13, 17]
-            }],
-        activtiesUpdated: false
+        activtiesUpdated: false,
+        timData: [],
+        lozData: [],
+        timSumData: [],
+        lozSumData: []
     });
 
     useEffect(() => {
@@ -43,15 +28,42 @@ export default function LineChart(props) {
             })
             .then((response) => {
                 console.log("aggregate activity api response: ", response.data)
-                setState({ ...state, activtySummary: response.data});
+                let newLabels = response.data[0].map(aggregateActivity =>aggregateActivity.summaryDate)
+                let newTimData = response.data[0].map(aggregateActivity =>aggregateActivity.aggregatePoints)
+                let newLozData = response.data[1].map(aggregateActivity =>aggregateActivity.aggregatePoints)
+                let newTimSumData = response.data[2].map(aggregateActivity =>aggregateActivity.aggregatePoints)
+                let newLozSumData = response.data[3].map(aggregateActivity =>aggregateActivity.aggregatePoints)
+
+                setState({ ...state, labels: newLabels, timData: newTimData, lozData: newLozData, timSumData: newTimSumData, lozSumData: newLozSumData});
                 // displayData();
             });
     }
 
-    return (
-        <div>
-            <Line
-                data={state}
+    const createDailyLineChart = (labels, timData, lozData) => {
+
+        let data = {labels: labels,
+        datasets: [
+            {
+                label: 'Tim',
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(242, 169, 12, 1)',
+                borderWidth: 2,
+                data: timData
+            },
+            {
+                label: 'Loz',
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(1, 223, 111, 1)',
+                borderWidth: 2,
+                data: lozData
+            }]}
+            return (
+        <Line
+                data={data}
                 options={{
                     title: {
                         display: true,
@@ -64,6 +76,12 @@ export default function LineChart(props) {
                     }
                 }}
             />
+            )}
+
+    return (
+        <div>
+            {createDailyLineChart(state.labels, state.timData, state.lozData)}
+            {createDailyLineChart(state.labels, state.timSumData, state.lozSumData)}
         </div>
     );
 }
