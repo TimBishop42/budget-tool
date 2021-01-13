@@ -227,7 +227,7 @@ export default function SubmitActivty() {
                     submissionState={state.isSubmitted}
                     submisisonError={state.submisisonError} />
             </Grid>
-            <h1>Tim and Loz Get Shredded Scores!!!</h1>
+            <h1>Tim and Loz Wed Shred Scores!!!</h1>
             <ActivitySummary
             activitySummary={state.activtySummary}/>
         </div>

@@ -13,13 +13,13 @@ import TransactionService from "../Rest/TransactionService";
 
 const useStyles = makeStyles((theme) =>({
     table: {
-      minWidth: 650,
+      minWidth: 30,
     },
-    paper: {
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
+    // paper: {
+    //     padding: theme.spacing(1),
+    //     textAlign: 'center',
+    //     color: theme.palette.text.secondary,
+    // },
   }));
 
 export default function ActivitySummary(props) {
@@ -47,7 +47,7 @@ export default function ActivitySummary(props) {
         if (props.activitySummary && props.activitySummary.length > 0) {
             return(
             <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+            <Table className={classes.table} aria-label="simple table" size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell align="center">Winner</TableCell>
