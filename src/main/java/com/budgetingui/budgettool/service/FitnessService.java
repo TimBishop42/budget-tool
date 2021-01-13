@@ -6,6 +6,7 @@ import com.budgetingui.budgettool.model.Activity;
 import com.budgetingui.budgettool.model.points.PointMapping;
 import com.budgetingui.budgettool.model.request.ActivityRequest;
 import com.budgetingui.budgettool.model.response.ActivitySummary;
+import com.budgetingui.budgettool.model.response.AggregateActivity;
 import com.budgetingui.budgettool.repository.FitnessActivityRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,15 +87,29 @@ public class FitnessService {
 
     public ResponseEntity<?> getAggregateActivities() {
         logger.info("Retrieving activities");
-        List<Activity> activityList = fitnessActivityRepository.findAll();
+        List<AggregateActivity> activityList = activityDao.findAggregateActivities();
         if(activityList.size() == 0) {
             return new ResponseEntity<>("No Activities to display", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         logger.info("Found {} activities", activityList.size());
-        return new ResponseEntity<>(sortAndAggregateResponse(activityList), HttpStatus.OK);
+        return new ResponseEntity<>(splitActivities(activityList), HttpStatus.OK);
     }
 
-    private List<List<ActivitySummary>> sortAndAggregateResponse(List<Activity> activityList) {
-        List<ActivitySummary> timList;
+    private List<List<AggregateActivity>> splitActivities(List<AggregateActivity> activityList) {
+        List<AggregateActivity> timList = new ArrayList<AggregateActivity>();
+        List<AggregateActivity> lozList = new ArrayList<AggregateActivity>();
+        List<List<AggregateActivity>> recombinedList = new ArrayList<>();
+        for(AggregateActivity activity : activityList) {
+            if(activity.userName.equals("Tim")) {
+                timList.add(activity);
+            }
+            else if(activity.userName.equals("Loz")) {
+                lozList.add(activity);
+            }
+        }
+        recombinedList.add(timList);
+        recombinedList.add(lozList);
+        return recombinedList;
     }
+
 }
