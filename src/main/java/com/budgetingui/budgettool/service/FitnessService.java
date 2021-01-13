@@ -83,4 +83,18 @@ public class FitnessService {
             return new ResponseEntity<>("Unable to retrieve activity summary", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public ResponseEntity<?> getAggregateActivities() {
+        logger.info("Retrieving activities");
+        List<Activity> activityList = fitnessActivityRepository.findAll();
+        if(activityList.size() == 0) {
+            return new ResponseEntity<>("No Activities to display", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        logger.info("Found {} activities", activityList.size());
+        return new ResponseEntity<>(sortAndAggregateResponse(activityList), HttpStatus.OK);
+    }
+
+    private List<List<ActivitySummary>> sortAndAggregateResponse(List<Activity> activityList) {
+        List<ActivitySummary> timList;
+    }
 }

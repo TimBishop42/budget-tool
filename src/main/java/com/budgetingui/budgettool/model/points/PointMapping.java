@@ -20,6 +20,7 @@ public class PointMapping {
     public static double NO_DRINKING = 1;
     public static double NO_DRINKING_WEEKEND = 2;
     public static double DRINKING_SUNDAY = -1;
+    public static double FIFTEEN_K_STEPS = 0.5;
 
 
 
@@ -35,6 +36,7 @@ public class PointMapping {
         pointsMap.put("NODRINKING", NO_DRINKING);
         pointsMap.put("NO_DRINKING_WEEKEND", NO_DRINKING_WEEKEND);
         pointsMap.put("SUNDAYDRINKING", DRINKING_SUNDAY);
+        pointsMap.put("15KSTEPS", FIFTEEN_K_STEPS);
     }
 
     public double getPointValue(String activityName, Date activityDate) {

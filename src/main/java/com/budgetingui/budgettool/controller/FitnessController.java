@@ -38,5 +38,9 @@ public class FitnessController {
         return fitnessService.getAcivitySummary();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getAgregateActivities")
+    public ResponseEntity<?> retrieveAggregateActivities() {
+        return fitnessService.getAggregateActivities();
+    }
 
 }
