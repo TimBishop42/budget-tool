@@ -1,8 +1,9 @@
 import { Line } from 'react-chartjs-2';
 import React, { useState, useEffect } from 'react';
+import TransactionService from "../Rest/TransactionService";
 
 
-export default function LineChart() {
+export default function LineChart(props) {
 
     const [state, setState] = useState({
         labels: ['1/1/2021', '2/1/2021', 'March',
@@ -24,9 +25,28 @@ export default function LineChart() {
                 backgroundColor: 'rgba(75,192,192,1)',
                 borderColor: 'rgba(0,1,1,1)',
                 borderWidth: 2,
-                data: [4, 6, 10, 13, 17] 
-            }]
+                data: [4, 6, 10, 13, 17]
+            }],
+        activtiesUpdated: false
     });
+
+    useEffect(() => {
+        console.log("Getting aggregate activity")
+        getAggregateActivity();
+    }, [props.activitiesUpdated]);
+
+
+    const getAggregateActivity = async () => {
+        TransactionService.getAggregateActivity()
+            .catch((error) => {
+                console.log(error);
+            })
+            .then((response) => {
+                console.log("aggregate activity api response: ", response.data)
+                setState({ ...state, activtySummary: response.data});
+                // displayData();
+            });
+    }
 
     return (
         <div>
@@ -35,7 +55,7 @@ export default function LineChart() {
                 options={{
                     title: {
                         display: true,
-                        text: 'Average Rainfall per month',
+                        text: 'Wed Shred Scores',
                         fontSize: 20
                     },
                     legend: {
@@ -47,4 +67,3 @@ export default function LineChart() {
         </div>
     );
 }
-  

@@ -35,6 +35,13 @@ export class TransactionService {
         )
     }
 
+    getAggregateActivity() {
+        let url = "/tool/api/fitness/getAgregateActivities"
+
+        return firebase.auth().currentUser.getIdToken(false).then(idToken =>
+            axios.get(url, { headers: { 'X-Authorization-Firebase': idToken } }))
+    }
+
     getActivitySummary() {
         let url = "/tool/api/fitness/getSummary"
         // console.log("Activity list for submittion: " + activityList);
@@ -74,6 +81,7 @@ export class TransactionService {
         return firebase.auth().currentUser.getIdToken(false).then(idToken =>
             axios.get(url, { headers: { 'X-Authorization-Firebase': idToken } }))
     }
+
 
 }
 

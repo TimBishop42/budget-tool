@@ -248,7 +248,8 @@ export default function SubmitActivty() {
             <h1>Tim and Loz Wed Shred Scores!!!</h1>
             <ActivitySummary
             activitySummary={state.activtySummary}/>
-            <LineChart/>
+            <LineChart
+            activitiesUpdated ={state.activitiesUpdated}/>
         </div>
 
 
