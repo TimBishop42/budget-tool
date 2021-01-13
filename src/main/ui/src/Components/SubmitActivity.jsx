@@ -14,6 +14,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import DatePicker from "react-datepicker";
 import TransactionService from "../Rest/TransactionService";
+import LineChart from './LineChart';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -47,6 +48,7 @@ export default function SubmitActivty() {
         gym: false,
         nodrinking: false,
         sundaydrinking: false,
+        fifteenKSteps: false,
         isSubmitted: false,
         activityDate: new Date(),
         submittionError: '',
@@ -88,6 +90,9 @@ export default function SubmitActivty() {
         }
         if (state.sundaydrinking) {
             activityList.push("SUNDAYDRINKING")
+        }
+        if (state.fifteenKSteps) {
+            activityList.push("15KSTEPS")
         }
         activityList.map((activity) => {
             console.log(activity)
@@ -216,6 +221,19 @@ export default function SubmitActivty() {
                     />
                 </Grid>
                 <Grid item>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={state.fifteenKSteps}
+                                onChange={handleChange}
+                                name="fifteenKSteps"
+                                color="primary"
+                            />
+                        }
+                        label="Fifteen K Steps"
+                    />
+                </Grid>
+                <Grid item>
                     <DatePicker selected={state.activityDate} onChange={handleDateChange} />
                 </Grid>
                 <Grid item>
@@ -230,6 +248,7 @@ export default function SubmitActivty() {
             <h1>Tim and Loz Wed Shred Scores!!!</h1>
             <ActivitySummary
             activitySummary={state.activtySummary}/>
+            <LineChart/>
         </div>
 
 
