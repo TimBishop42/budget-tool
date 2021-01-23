@@ -21,4 +21,14 @@ CREATE TABLE role(
     constraint fk_authorities_user foreign key(USERID_) references user(ID_)
 );
 
+CREATE TABLE `activity` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `activity_name` varchar(50) NOT NULL,
+  `points` float NOT NULL,
+  `activity_user` varchar(250) NOT NULL,
+  `activity_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 INSERT INTO purchase (id, name, description, category, cost, purchase_date) VALUES(100, 'purchase1', 'this was a cost for something', 'Alcohol',100.00, '2012-09-17');
