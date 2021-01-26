@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.security.Principal;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class FitnessService {
@@ -64,7 +68,8 @@ public class FitnessService {
                     .setActivityDate(activityRequest.getActivityDate())
                     .setActivityName(activityName)
                     .setActivityUser(principal.getName())
-                    .setPoints(pointMapping.getPointValue(activityName, activityRequest.getActivityDate())));
+                    .setPoints(pointMapping.getPointValue(activityName, activityRequest.getActivityDate()))
+                    .setDayOfWeek(getDayOfWeek(activityRequest.getActivityDate())));
         }
         return activities;
     }
@@ -113,7 +118,7 @@ public class FitnessService {
         return recombinedList;
     }
 
-    public List<AggregateActivity> sumActivitiesForUser(List<AggregateActivity> userList) {
+    private List<AggregateActivity> sumActivitiesForUser(List<AggregateActivity> userList) {
         double rollingSummary = 0;
         List<AggregateActivity> summedList = new ArrayList<>();
         for(AggregateActivity activity: userList) {
@@ -121,6 +126,13 @@ public class FitnessService {
             summedList.add(new AggregateActivity().setAggregatePoints(rollingSummary).setSummaryDate(activity.summaryDate).setUserName(activity.getUserName()));
         }
         return summedList;
+    }
+
+    private String getDayOfWeek(Date activityDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(activityDate);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE");
+        return dateFormat.format(calendar.getTime());
     }
 
 }

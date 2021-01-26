@@ -41,6 +41,9 @@ export default function LineChart(props) {
 
     const createDailyLineChart = (labels, timData, lozData) => {
 
+        console.log("Tim Data before drawing chart: ", timData)
+        console.log("Loz Data before drawing chart: ", lozData)
+
         let data = {labels: labels,
         datasets: [
             {

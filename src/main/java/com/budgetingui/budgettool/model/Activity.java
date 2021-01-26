@@ -19,6 +19,7 @@ public class Activity {
     private String activityName;
     private double points;
     private String activityUser;
+    private String dayOfWeek;
 
     public Activity setActivityDate(Date activityDate){
         this.activityDate = activityDate;
@@ -37,6 +38,11 @@ public class Activity {
 
     public Activity setPoints(Double points){
         this.points = points;
+        return this;
+    }
+
+    public Activity setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
         return this;
     }
 
